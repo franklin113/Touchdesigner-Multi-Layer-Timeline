@@ -5,6 +5,9 @@ A multi-layer timeline tool built in 3d using render picking for all interaction
 
 # Release History
 
+## 0.02
+Added additional UI interactions
+
 ## 0.01
 Although this tool is not complete, I'm releasing this as is because of everything going on with the COVID-19. 
 If there's interest and a particular request I can make updates to it. Until then, I'm moving on from the project.
