@@ -5,5 +5,7 @@
 # Release History
 
 ## 0.6 - Project Management
+
+- New "Project" Page in the user settings allows you to select from any number of timelines in your project.
 - Now supports saving and loading multiple timelines within a project.
 - Supports external saving and loading of timeline projects.
