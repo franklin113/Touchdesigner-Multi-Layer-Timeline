@@ -12,3 +12,5 @@
 - Supports external saving and loading of timeline projects.
 - Timelines are stored as TDJson in storage for efficient load and unload
 - Projects are saved to txt file as TDJson in a user designated path.
+- Timeline projects are saved automatically as the toe file is saved.
+- Timeline projects are backed up to a backup folder located next to the project.
