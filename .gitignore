@@ -4,3 +4,7 @@ Tox/Timeline3D/Render Pick/Backup
 Tox/Timeline3D/Canvas/Backup/ScrubBar/geo_ScrubBar.tox
 Tox/Timeline3D/Canvas/Backup/TimeIcons/geo_TimeIcons.tox
 Tox/Timeline3D/Canvas/Backup/Canvas.tox
+/Tests
+/TimelineSaver
+/TimelineSaves
+/TimelineBackup
