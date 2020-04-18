@@ -20,4 +20,4 @@
 ## - Cue Building
 
 - New "Add Cue" button has been added on the setting page.
-- Duplicate a cue by hitting Ctrl-D
+
