@@ -20,4 +20,5 @@
 ## - Cue Building
 
 - New "Add Cue" button has been added on the setting page.
-
+- Copy and Paste Multiple Cues.
+- Full undo / redo support for deleting and adding cues.
