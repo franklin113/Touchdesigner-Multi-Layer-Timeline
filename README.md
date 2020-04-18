@@ -14,3 +14,10 @@
 - Projects are saved to txt file as TDJson in a user designated path.
 - Timeline projects are saved automatically as the toe file is saved.
 - Timeline projects are backed up to a backup folder located next to the project.
+
+- Dropdown Menu provides a list of all available timelines in your project
+
+## - Cue Building
+
+- New "Add Cue" button has been added on the setting page.
+- Duplicate a cue by hitting Ctrl-D
