@@ -44,3 +44,7 @@
 - Custom parameters offer an easy way to build a UI, or just use it as is.
 - Ability to adjust look of layers, cues, and playhead
 - Seperate pages for User Settings, Camera, and Project
+
+### - Selection
+-Multiselect
+-Box select
