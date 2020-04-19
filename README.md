@@ -24,7 +24,14 @@
 - Full undo / redo support for deleting and adding cues.
 
 ## - UI
+
+### - Cue Scheduling
 - Full view of a 1 sec- 24 hour timeline
 - Time icons along timeline provide clear visual of time position
-- Snapping to various time increments provide easy scheduling of cues
-- 
+- Time icon increments adjust as the camera zooms into the timeline
+
+ ### - Snapping
+ - Snap cues to other cues 
+ - Snap cues to playhead
+ - Snap cues or playhead to various levels of time increments based on zoom level
+ 
