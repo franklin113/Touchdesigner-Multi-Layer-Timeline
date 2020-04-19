@@ -35,3 +35,6 @@
  - Snap cues to playhead
  - Snap cues or playhead to various levels of time increments based on zoom level
  
+### - Timing
+- Master timer sends all custom parameter data and timeline info
+- Transport control via scrub bar and transport buttons
