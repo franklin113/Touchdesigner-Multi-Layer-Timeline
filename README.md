@@ -22,3 +22,9 @@
 - New "Add Cue" button has been added on the setting page.
 - Copy and Paste Multiple Cues.
 - Full undo / redo support for deleting and adding cues.
+
+## - UI
+- Full view of a 1 sec- 24 hour timeline
+- Time icons along timeline provide clear visual of time position
+- Snapping to various time increments provide easy scheduling of cues
+- 
