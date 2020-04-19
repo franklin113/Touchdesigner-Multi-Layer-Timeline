@@ -38,3 +38,9 @@
 ### - Timing
 - Master timer sends all custom parameter data and timeline info
 - Transport control via scrub bar and transport buttons
+- Countdown and Countup to end of timeline
+
+### - Interface
+- Custom parameters offer an easy way to build a UI, or just use it as is.
+- Ability to adjust look of layers, cues, and playhead
+- Seperate pages for User Settings, Camera, and Project
