@@ -4,6 +4,13 @@
 
 # Release History
 
+## .71 
+### - Bug Fixes
+- The default state of the toe and tox files originally uploaded caused problems with some users.
+- Fixed some issues with seleciton where None type values were being passed after operators were deleted
+- Added a Close Project button to clean up any bad project data.
+- Added "OnPlayStateChange" callback to the callback manager.
+
 ## 0.7
 ## - Project Management
 
