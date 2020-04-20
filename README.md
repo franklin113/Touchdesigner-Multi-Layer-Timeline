@@ -22,3 +22,29 @@
 - New "Add Cue" button has been added on the setting page.
 - Copy and Paste Multiple Cues.
 - Full undo / redo support for deleting and adding cues.
+
+## - UI
+
+### - Cue Scheduling
+- Full view of a 1 sec- 24 hour timeline
+- Time icons along timeline provide clear visual of time position
+- Time icon increments adjust as the camera zooms into the timeline
+
+ ### - Snapping
+ - Snap cues to other cues 
+ - Snap cues to playhead
+ - Snap cues or playhead to various levels of time increments based on zoom level
+ 
+### - Timing
+- Master timer sends all custom parameter data and timeline info
+- Transport control via scrub bar and transport buttons
+- Countdown and Countup to end of timeline
+
+### - Interface
+- Custom parameters offer an easy way to build a UI, or just use it as is.
+- Ability to adjust look of layers, cues, and playhead
+- Seperate pages for User Settings, Camera, and Project
+
+### - Selection
+-Multiselect
+-Box select
