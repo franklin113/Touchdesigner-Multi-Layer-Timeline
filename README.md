@@ -48,3 +48,6 @@
 ### - Selection
 -Multiselect
 -Box select
+
+### - Callbacks
+- Implimented a callback system via Alpha Moon Base's Callback Manager. 
