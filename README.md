@@ -4,7 +4,7 @@
 
 # Release History
 
-## 0.6
+## 0.7
 ## - Project Management
 
 - New "Project" Page in the user settings allows you to select from any number of timelines in your project.
