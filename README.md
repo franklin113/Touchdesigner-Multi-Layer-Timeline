@@ -4,7 +4,7 @@
 
 # Release History
 
-## 0.6
+## 0.7
 ## - Project Management
 
 - New "Project" Page in the user settings allows you to select from any number of timelines in your project.
@@ -47,4 +47,7 @@
 
 ### - Selection
 -Multiselect
--Box select
+-Box select (Thanks Lucas!)
+
+### - Callbacks
+- Implimented a callback system via Alpha Moon Base's Callback Manager. 
