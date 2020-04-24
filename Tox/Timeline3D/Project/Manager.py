@@ -300,39 +300,24 @@ class Manager:
 	### END Timeline Creation
 
 	### GET SET Item Info
-	def GetItemData(self, opList, pageExcludes:set = {'System'},parsToExclude = set()):
+	def GetItemData(self, opList, excludePages = set(),parsToExclude = set()):
 
 		assert opList != None or opList != [], "Empty list passed to GetItemData"
 
-		listOfItems = opList 
 		
 		cuesDict = OrderedDict()
 
 
-		for curItem in listOfItems:
+		for curItem in opList:
 			
-			TDJsonList = []
-			
-			for curPar in curItem.customPars:
-				if curPar.name not in parsToExclude and curPar.page.name not in pageExcludes:
-					parMode = curPar.mode
-					
-					if parMode == ParMode.EXPRESSION:
-						extraAttrs = 'expr'
-					elif parMode == ParMode.CONSTANT:
-						extraAttrs = 'val'
-					elif parMode == ParMode.BIND:
-						extraAttrs = 'bind'
-
-					tdPar = TDJ.parameterToJSONPar(curPar, extraAttrs = [extraAttrs])
-					TDJsonList.append(tdPar)
-			
-			cuesDict[curItem.name] = TDJsonList[:]
+			parWriterObj = mod.ParWriter.ParWriter(curItem)
+			cuesDict[curItem.name] = parWriterObj.ConvertToJsonable(excludePages = excludePages)
 
 		return cuesDict
 
-	def SetItemData(self, opToSet, tdJsonList):
-		TDJ.addParametersFromJSONList(opToSet, tdJsonList)
+	def SetItemData(self, opToSet, jsonDict):
+		pWriter = mod.ParWriter.ParWriter(opToSet)
+		pWriter.UpdatePars(jsonDict= jsonDict)
 
 	def GetOps(self,layer=False,cue=False, user=False):
 		# Retrieves a list of all our cues in our scene
@@ -368,10 +353,10 @@ class Manager:
 		layers = self.GetOps(layer=True)
 		userSettings = self.GetOps(user=True)
 
-		cueData = self.GetItemData(cues)
-		layerData = self.GetItemData(layers)
+		cueData = self.GetItemData(cues,excludePages={'System'})
+		layerData = self.GetItemData(layers, excludePages={'System'})
 
-		userData = self.GetItemData(userSettings, pageExcludes = {'System', 'Project'})
+		userData = self.GetItemData(userSettings, excludePages = {'Project'})
 
 		timelineData = {
 			'Cues' : cueData,
@@ -426,11 +411,6 @@ class Manager:
 		toLoadTimeline = timelines[timelineName]	# the timeline we are loading up
 
 		activeTimelineBeforeLoad = self.ActiveTimeline 		# the timeline active prior to our load
-		# print('loading')
-		# if timelineName == activeTimelineBeforeLoad:
-		# 	print("TEST")
-			
-		# 	return
 		
 		if savePrevious:
 			self.StoreTimelineData(activeTimelineBeforeLoad)	# store the current timeline before we load
@@ -450,7 +430,7 @@ class Manager:
 		newCueList = [self.AddDefault() for x in range(numCues)]		# add the correct number of cues.
 
 		for curCue in newCueList:				
-			curJsonDict = cuesList[curCue.name]		# the TDJson object for the cue
+			curJsonDict = cuesList[curCue.name]		# the jsoned object for the cue
 			self.SetItemData(curCue,curJsonDict)	# set all the custom parameters to the cue
 
 		## Update user settings
@@ -479,7 +459,7 @@ class Manager:
 
 
 		user = self.GetOps(user = True)
-		userData = self.GetItemData(user, pageExcludes = set(('Settings','Camera')), parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
+		userData = self.GetItemData(user, excludePages = {'Settings','Camera'}, parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
 		systemData = self.GetSystemData()
 
 		projData = {
@@ -556,6 +536,9 @@ class Manager:
 
 	def SetSystemToDefault(self):
 		self.StoreTimelineData(resetState=True)
+		###### REMOVE CUES #### DANGER ZONE #####
+		self.RemoveCues(selection=False, clearAll=True)							# start from scratch with cues removed
+		################################################
 
 	### END Project File Management
 
