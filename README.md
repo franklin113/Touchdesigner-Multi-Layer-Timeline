@@ -16,6 +16,7 @@
 - Various "Invert Scroll" parameters added to camera
 - Removed camera settings from user preferences. 
 - New Range Bar has been added. 
+- Made more timecode readouts visible sooner at various timeline lengths.
 
 ## 0.7
 ## - Project Management
