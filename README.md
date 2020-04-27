@@ -4,6 +4,19 @@
 
 # Release History
 
+## 0.73
+### - Project Management
+- Message box has been added to ask the user to save when they close the project or load a new one
+- Auto-Save on exit removed
+- Save backups is disabled temporarily
+
+### - UI
+- New camera system using range sliders.
+- Zoom towards camera by holding alt+mousewheel.
+- Various "Invert Scroll" parameters added to camera
+- Removed camera settings from user preferences. 
+- New Range Bar has been added. 
+
 ## 0.7
 ## - Project Management
 
