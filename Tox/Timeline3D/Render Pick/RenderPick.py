@@ -407,7 +407,6 @@ class RenderPick:
 
 	def EventSelectEnd(self, renderPickDat, event, eventPrev):
 
-		self.MouseOp.CamPos = self.MainOp.op('Render/cam1').par.tx.eval()
 		
 		# Reset all snapping data to False
 		self.SnapStartMouseXPos = None
