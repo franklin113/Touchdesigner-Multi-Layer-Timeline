@@ -13,7 +13,7 @@
 ### - UI
 - New camera system using range sliders.
 - Zoom towards camera by holding alt+mousewheel.
-- various "Invert Scroll" parameters added to camera
+- Various "Invert Scroll" parameters added to camera
 - Removed camera settings from user preferences. 
 - New Range Bar has been added. 
 
