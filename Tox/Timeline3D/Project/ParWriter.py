@@ -62,7 +62,6 @@ class ParWriter:
         elif parMode == ParMode.CONSTANT:
             val = (curPar.name, 'const', curPar.val)
 
-        print(curPar)
 
         return val
 

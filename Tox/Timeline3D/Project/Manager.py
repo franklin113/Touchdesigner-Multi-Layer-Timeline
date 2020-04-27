@@ -155,6 +155,7 @@ class Manager:
 		# print(self.Clipboard)
 
 	def PasteOperation(self):
+		
 		#add a cue based on the copied ops
 		ui.undo.startBlock('Paste Operation () - ' + self.myOp.path)
 		
@@ -473,11 +474,14 @@ class Manager:
 		return projData
 		# ext.Saver.SaveToDisk(data = projData)
 
-	def LoadProject(self):
+	def LoadProject(self,saveBeforeExit=True):
 		
-		if ipar.UserSettings.Autosaveonexit.eval():
-			ext.Saver.SaveToDisk(filepath = ipar.UserSettings.Activeproject.eval()) # saves the packaged project to disk
-		
+		if saveBeforeExit:
+			print('save before exit enabled')
+			self.StoreTimelineData()
+			ext.Saver.SaveToDisk(filepath = ipar.UserSettings.Activeproject.eval())
+
+
 		self.SetSystemToDefault()
 		projectData = ext.Saver.LoadFromDisk()
 		
@@ -493,18 +497,10 @@ class Manager:
 			print("Error storing Timelines while loading project")
 			debug(e)
 
-		# try:
-		# 	userProjectPage = projectData['UserSettings']["iparUserSettings"]
-		# 	self.SetItemData(self.UserSettingsOp,userProjectPage)	# set the project page
+
 		run("ipar.UserSettings.Activeproject = ipar.UserSettings.File.eval()",delayFrames=1,fromOP = me)
 			
-		# 	# active timeline should only be set by the loader. I just reset it here because it's 
-		# 	# part of the user data...
-		# 	self.ActiveTimeline = ''	# this should not be the processs that sets the active timeline
-		
-		# except KeyError as e:
-		# 	print("Invalid user settings in project data. Trying to continue.")
-		
+
 		try:
 			names = list(projectData['Timelines'].keys())
 			firstTimeline = None
@@ -529,7 +525,12 @@ class Manager:
 		'''
 		# pprint(project.pythonStack())
 
-	def CloseProject(self):
+	def CloseProject(self, saveBeforeExit=True):
+		
+		if saveBeforeExit:
+			self.StoreTimelineData()
+			ext.Saver.SaveToDisk(filepath = ipar.UserSettings.Activeproject.eval())
+
 		self.SetSystemToDefault()
 		ipar.UserSettings.Activeproject = ''
 		ipar.UserSettings.File = ''

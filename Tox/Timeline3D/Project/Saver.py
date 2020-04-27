@@ -15,7 +15,6 @@ class Saver:
 		self.myOp = ownerComp
 		self.ProjectFile = ipar.UserSettings.File
 		self.SaveBackups = ipar.UserSettings.Savebackups
-
 		self.PreviouslySavedFilePath = None #parent().fetch('LastSavedPath', None, storeDefault=True)
 
 		# Test Data
@@ -30,7 +29,6 @@ class Saver:
 			If enabled, we will run the portion below about saving backups..
 
 		'''
-
 		newRelativePath = None
 
 		if filepath: 
@@ -38,10 +36,10 @@ class Saver:
 
 		else:
 			newRelativePath = self.ProjectFile.eval()
-
 		if not newRelativePath:
 			print("Error saving timelines, no file path provided")
 			return False	
+			print(newRelativePath)
 		
 		ipar.UserSettings.Activeproject = newRelativePath
 
