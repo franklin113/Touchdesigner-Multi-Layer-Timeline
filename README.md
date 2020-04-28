@@ -3,7 +3,7 @@
 # Usage
 
 ### Shortcuts
-- Alt+Scroll Wheel to zoom in/out
+- Alt+Scroll-wheel to zoom in/out
 - Scroll-wheel or Shift+scroll-wheel can either scroll horizontally or vertically based on user settings
 
 # Release History
