@@ -16,7 +16,7 @@ While Dragging A Cue --
 With A Cue Selected --
 - Delete - deletes the selected cues
 - Ctrl+c - copies the selected cues and pastes them, starting at the playhead.
-
+- Ctrl+z - Undo After deleting or adding a cue
 # Release History
 
 ## 0.73
