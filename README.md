@@ -13,6 +13,10 @@ While Dragging A Cue --
 - Ctrl+Alt - snaps to playhead
 - Ctrl - snaps to certain time increments
 
+With A Cue Selected --
+- Delete - deletes the selected cues
+- Ctrl+c - copies the selected cues and pastes them, starting at the playhead.
+
 # Release History
 
 ## 0.73
