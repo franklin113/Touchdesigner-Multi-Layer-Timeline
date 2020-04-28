@@ -2,9 +2,16 @@
 
 # Usage
 
-### Shortcuts
+## Shortcuts
+
+### Camera Shortcuts
 - Alt+Scroll-wheel to zoom in/out
 - Scroll-wheel or Shift+scroll-wheel can either scroll horizontally or vertically based on user settings
+
+### Timeline Editing Shortcuts
+While Dragging A Cue --
+- Ctrl+Alt - snaps to playhead
+- Ctrl - snaps to certain time increments
 
 # Release History
 
