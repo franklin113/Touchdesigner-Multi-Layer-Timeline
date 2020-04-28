@@ -1,5 +1,10 @@
 # Touchdesigner-Multi-Layer-Timeline
 
+# Usage
+
+### Shortcuts
+- Alt+Scroll Wheel to zoom in/out
+
 
 
 # Release History
