@@ -1,7 +1,22 @@
 # Touchdesigner-Multi-Layer-Timeline
 
+# Usage
 
+## Shortcuts
 
+### Camera Shortcuts
+- Alt+Scroll-wheel to zoom in/out
+- Scroll-wheel or Shift+scroll-wheel can either scroll horizontally or vertically based on user settings
+
+### Timeline Editing Shortcuts
+While Dragging A Cue --
+- Ctrl+Alt - snaps to playhead
+- Ctrl - snaps to certain time increments
+
+With A Cue Selected --
+- Delete - deletes the selected cues
+- Ctrl+c - copies the selected cues and pastes them, starting at the playhead.
+- Ctrl+z - Undo After deleting or adding a cue
 # Release History
 
 ## 0.73
@@ -9,6 +24,7 @@
 - Message box has been added to ask the user to save when they close the project or load a new one
 - Auto-Save on exit removed
 - Save backups is disabled temporarily
+- This no longer uses TDJson and now uses a much simpler parameter reader/writer system. 
 
 ### - UI
 - New camera system using range sliders.
@@ -16,6 +32,7 @@
 - Various "Invert Scroll" parameters added to camera
 - Removed camera settings from user preferences. 
 - New Range Bar has been added. 
+- Made more timecode readouts visible sooner at various timeline lengths.
 
 ## 0.7
 ## - Project Management
