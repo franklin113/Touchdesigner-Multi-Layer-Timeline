@@ -126,21 +126,11 @@ class Selection:
 		return isInsideBox
 		
 	def DoSelection(self, selectionList, oldSelection, select = True):
-		# print('new: ', selectionList)
-		# print('old: ', oldSelection)
 
 		newSel = set(selectionList)
 		oldSel = set(oldSelection)
 		
-		
-
-		# # print(newSel)
-		# print('new selection', newSel)
-		# print('old selection', oldSel)
-
 		dif = oldSel - newSel
-
-
 
 		for i in dif:
 			if i != None:

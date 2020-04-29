@@ -91,9 +91,15 @@ class RenderPick:
 		self.MouseOp = self.MainOp.op('Input/Mouse')
 		self.BoxSelectOp = self.MainOp.op('Canvas/geo_BoxSelect')
 
-		self.SnapStartMouseXPos = None
-		self.SnapState = False
-		self.PrevSnapState = False
+		self.currentClickPosition = None
+
+		self.DeleteRightPar = parent.Main.op('Cues/base_Snapping/base_GetLeftSideOfStart/delete_Right_Of').par.value1
+		self.DeleteLeftPar = parent.Main.op('Cues/base_Snapping/base_GetRightSideOfStart/delete_Left_Of').par.value1
+		self.DeleteRightPar2 = parent.Main.op('Cues/base_Snapping/base_GetLeftSideOfEnd/delete_Right_Of2').par.value1
+		self.DeleteLeftPar2 = parent.Main.op('Cues/base_Snapping/base_GetRightSideOfEnd/delete_Left_Of2').par.value1
+
+		self.ProposedStartPar = parent.Main.op('Cues/base_Snapping/constant_ProposedStartTime').par.value0
+		self.ProposedEndPar = parent.Main.op('Cues/base_Snapping/constant_ProposedStartTime').par.value1
 
 	def EventSelectStart(self, renderPickDat, event, eventPrev):
 		'''	
@@ -135,6 +141,7 @@ class RenderPick:
 
 
 		if 'Cue' in selectedOp.tags: # Selection is a cue
+			
 			tag = 'Cue'
 			objPrefix = self.ObjectPrefix[tag]
 			self.PreviousTag = tag
@@ -146,6 +153,8 @@ class RenderPick:
 			self.IsTimelineItem = True	# we use this during our next render pick stage
 			
 			selectedItem = self.GetObject(selectedOp, self.InstanceId, tag) # retrieve the component this cue represents
+			
+
 			if self.ClickType == 4:
 
 				self.RickClickCallbackInfo.update( {
@@ -185,7 +194,8 @@ class RenderPick:
 			# boolean and logic, combined gives us true only if clicked pixel is with in the range of our defined drag area.
 			IsClickStretch = click_x_ss > cue_x_min_ss and click_x_ss <= cue_x_max_ss
 
-			ext.Transformer.SnappingDistance = ext.Transformer.ScreenSpaceToWorldspace(x=0, offset = (20,0)).x	# we only need the x value
+			# ext.Transformer.SnappingDistance = ext.Transformer.ScreenSpaceToWorldspace(x=0, offset = (20,0)).x	# we only need the x value
+			#ext.Bounds.SnappingDistance = ext.Transformer.ScreenSpaceToWorldspace(x=0, offset = (20,0)).x	# we only need the x value
 			### ----------------------------------------------------------###
 
 			# ---- PROCESS INTERACTION TYPES -------- #
@@ -296,6 +306,17 @@ class RenderPick:
 		self.AllCueBounds = self.myOp.fetch('AllCueBounds')
 		ext.Selection.DoSelection(ext.Selection.Selection, ext.Selection.OldSelection, select = True)
 
+		selectionNames = [x.name for x in ext.Selection.Selection]
+		chans = []
+		selectedChop = parent.Main.op('Cues/base_Snapping/constant_SelectedPoints')
+
+		for i in selectionNames:
+			# selectedChop.value0.
+			chans.extend([i + ':' + 'Starttime', i + ':' + 'Computedendtime'])
+
+
+		finalChanNames = chans
+		parent.Main.op('Cues/base_Snapping/delete_Selection').par.delscope.expr = finalChanNames
 
 		if self.IsTimelineItem:
 			self.ProcessSelectedCues(event.pos)
@@ -307,7 +328,7 @@ class RenderPick:
 		
 
 		currentClickPosition = event.pos
-
+		self.currentClickPosition = event.pos
 		UV = event.texture	# TDU.Position
 		prevUV = eventPrev.texture	# TDU.Position
 
@@ -315,52 +336,34 @@ class RenderPick:
 
 		if self.ClickType == 1: # Left Click
 			if self.IsTimelineItem:	# if we are dragging a cue - 
-				
+
 				try:
 					self.SelectedBounds = self.myOp.GetBounds(ext.Selection.Selection[0].par.Tx.eval() ,ext.Selection.Selection[0].par.Ty.eval(), ext.Selection.Selection[0].par.Cuelength.eval())
 					outsideX, outsideY, directionX, directionY = self.myOp.IsOutsideBounds(self.SelectedBounds,currentClickPosition)
+					ext.Bounds.UpdateAllBounds()
 				except Exception as e:
 					print(e)
 				if event.pickOp == None:
 					return
 
 				newGeoPosition = None
+				sortedClickPos = sorted(self.ClickPositionOffsets, key = lambda x: x.x)
+				sortedSelection = sorted(ext.Selection.Selection, key = lambda x: x.par.Starttime.eval())
+
+				selectionBlockStartTime = currentClickPosition.x + sortedClickPos[0].x
+				selectionBlockEndTime = currentClickPosition.x + sortedClickPos[-1].x + sortedSelection[-1].par.Cuelength.eval()
+				
+				self.ProposedStartPar.val = selectionBlockStartTime
+				self.ProposedEndPar.val = selectionBlockEndTime
+				
+				self.DeleteLeftPar.val = selectionBlockStartTime
+				self.DeleteRightPar.val = selectionBlockStartTime
+				self.DeleteLeftPar2.val = selectionBlockEndTime
+				self.DeleteRightPar2.val = selectionBlockEndTime
 
 				for ind, obj in enumerate(ext.Selection.Selection):
 					
-
-					if self.CanTranslate: # Translate our cue
-
-						newGeoPosition = currentClickPosition + self.ClickPositionOffsets[ind]  # TDU.Position
-						# self.SetStartTime(newGeoPosition.x, obj)
-						proposedStartTime = newGeoPosition.x
-						# ext.Transformer.StoreBounds(singleEntry = (obj, self.SelectedBounds),swapEntryIndex=ext.Selection.Selection[0].par.Timeorderindex.eval())
-						comparedToNeighborTest = ext.Transformer.CompareNeighbors(proposedStartTime, ext.Selection.Selection[0].par.Timeorderindex.eval(),currentClickPosition.x, self.SnapStartMouseXPos)
-						
-						# CompareNeighbors returns ( did we snap ? , updated Time position, the yPosition you should set your line to)
-						
-						if comparedToNeighborTest[0] == True:
-							self.SnapState = True
-
-							if self.PrevSnapState == False:
-								# print('we know we just started to snap')
-								self.SnapStartMouseXPos = currentClickPosition.x
-
-							self.PrevSnapState = True
-							ext.Transformer.SetSnapLines( comparedToNeighborTest[1],  comparedToNeighborTest[2][0], comparedToNeighborTest[2][1])
-							ext.Transformer.RenderSnappingLines(True)
-						else:
-							self.SnapStartMouseXPos = None
-							self.SnapState = False
-							self.PrevSnapState = False
-							ext.Transformer.RenderSnappingLines(False)
-
-							# print('setting to 0')
-
-						self.SetStartTime(comparedToNeighborTest[1], obj)
-
-					
-					elif self.CanStretch: # Stretch our cue
+					if self.CanStretch: # Stretch our cue
 
 						curTime = currentClickPosition + self.OffsetFromEndTime[ind]
 						deltaTime = curTime.x - obj.par.Computedendtime.eval()
@@ -408,11 +411,6 @@ class RenderPick:
 	def EventSelectEnd(self, renderPickDat, event, eventPrev):
 
 		
-		# Reset all snapping data to False
-		self.SnapStartMouseXPos = None
-		self.SnapState, self.PrevSnapState = False, False
-		ext.Transformer.RenderSnappingLines(False)
-
 		if self.IsBoxSelect:
 			# if we are cleaning up our box selection - 
 
@@ -433,7 +431,32 @@ class RenderPick:
 
 		pass
 
-	
+	def SetAllSelectionStartTimes(self, timeOffset = 0):
+		'''
+			This operation sets the start time for all the cues in the selection
+			this is actually getting called from the script_SnappingCallbacks located here-
+			/Multi_Layer_Timeline/Timeline3D/Cues/base_Snapping
+
+			We have a chop network that is checking for snaps.
+
+			params: timeOffset - the value coming from the snapping callbacks 
+				This will offset our cues by a value to lock it in place.
+
+		'''
+
+		for ind, obj in enumerate(ext.Selection.Selection):
+			
+			if self.CanTranslate: # Translate our cue
+				
+				newGeoPosition = self.currentClickPosition + self.ClickPositionOffsets[ind]  # TDU.Position
+				
+				proposedStartTime = newGeoPosition.x
+				
+				if timeOffset != None and timeOffset != 0.0 and ipar.UserSettings.Snapping.eval():
+					proposedStartTime -= timeOffset		
+
+				self.SetStartTime(proposedStartTime, obj)
+
 	def SetStartTime(self, startTime, Cue):
 
 		if Cue.par.Lock.eval():
@@ -456,6 +479,7 @@ class RenderPick:
 
 
 		Cue.par.Starttime = realStartTime
+
 
 	def SetLength(self, obj, time, addTo = False):
 		

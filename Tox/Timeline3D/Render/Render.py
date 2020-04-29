@@ -28,6 +28,7 @@ class Render:
 
 		self.RangeBar = parent.Timeline.op('container_RangeSlider/container2')
 		self.lRangePar, self.rRangePar = ipar.Camera.Lrange, ipar.Camera.Rrange
+		self.SnappingThresholdPar = parent.Main.op('Cues/base_Snapping/script1').par.Threshold
 
 	def ScreenSpaceToWorldspace(self, x=0, y=0, offset = None):		
 		'''
@@ -156,6 +157,9 @@ class Render:
 		newRRange = max( 0, min(viewRanges[1] + distancesToTarget[1] / zoomConstant * val, 1))
 		
 		self.SetRange(newLRange,newRRange)
+
+		### Do stuff that requires calculations based on zoom level...
+		self.SnappingThresholdPar.val = offset * .25
 
 
 	def Scroll(self, val, prev, vertical = False):
