@@ -66,7 +66,11 @@ def onValueChange(par, prev,val):
 			TimeConverter(par, updatingSeconds=True)
 			parent().store('PREV_TIME', time.time())
 
-
+		renderOp = op('Render')
+		renderOp.op('iparCamera').par.Lrange.val = 0
+		renderOp.op('iparCamera').par.Rrange.val = 1
+		renderOp.op('iparCamera').par.Camypos.val = 0
+		run("op('{}').Zoom(-1,0)".format(renderOp), delayFrames=60)
 		# this fixes the issue of the parameter viewer not updating
 		parent.Main.par.Parametercomp.eval().cook(force=True)
 
