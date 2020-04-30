@@ -23,6 +23,11 @@ With A Cue Selected --
 ### - Snapping
 - Selected cues can now be snapped to the front or back of other cues
 
+### - Timing
+- A new timing system has been put in place by Brian Alexander. 
+- Preload pulse can be received prior to every cue
+- A master parellel timer can be accessed for playback and triggering
+
 ## 0.73
 ### - Project Management
 - Message box has been added to ask the user to save when they close the project or load a new one
