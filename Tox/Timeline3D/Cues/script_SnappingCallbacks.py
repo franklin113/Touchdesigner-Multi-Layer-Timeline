@@ -27,6 +27,7 @@ def onCook(scriptOp):
 	prevNextOfStart = [scriptOp.inputs[0][0].vals[-1], scriptOp.inputs[1][0].vals[0]]
 	prevNextOfEnd = [scriptOp.inputs[2][0].vals[-1], scriptOp.inputs[3][0].vals[0]]
 
+
 	##### The closest cue to either the start or end of the cue ######
 	closestValA = [prevNextOfStart[0],prevNextOfStart[1]][ abs(prevNextOfStart[1] - proposedTime) <= abs(prevNextOfStart[0] - proposedTime) ]
 	closestValB = [prevNextOfEnd[0],prevNextOfEnd[1]][ abs(prevNextOfEnd[1] - proposedEndTime) <= abs(prevNextOfEnd[0] - proposedEndTime) ]
