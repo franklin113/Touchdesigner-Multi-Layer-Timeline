@@ -20,10 +20,10 @@ projectOp = op('Project')
 import re
 import datetime
 
-def UpdateTimecodePar(par, val=None):
+def UpdateSecondsPar(par):
 
 	groupPatterns = ['seconds', 'minutes seconds', 'hours minutes seconds']
-	digits = re.search(r'^(([0-5]?[0-9])?:?([0-5]?[0-9])?:?([0-5]?[0-9]))$', val)
+	digits = re.search(r'^(([0-5]?[0-9])?:?([0-5]?[0-9])?:?([0-5]?[0-9]))$', par.eval())
 	digitGroups = [int(i) for i in digits.group().split(':')]
 	numDigitGroups = len(digitGroups)
 	timePattern = groupPatterns[numDigitGroups-1].split()
@@ -31,38 +31,27 @@ def UpdateTimecodePar(par, val=None):
 	timeDeltaObj = datetime.timedelta(**timeArgs)
 	prettyTime = str(timeDeltaObj)
 	ipar.UserSettings.Timelinetimecode = prettyTime
-	if int(ipar.UserSettings.Timelinelength) != timeDeltaObj.seconds:
-		ipar.UserSettings.Timelinelength = timeDeltaObj.seconds
+	if int(ipar.UserSettings.Timelinelength) != int(timeDeltaObj.seconds):
+		run('ipar.UserSettings.Timelinelength = {}'.format(timeDeltaObj.seconds), delayFrames=1)
 
-def UpdateSecondsPar(par):
+def UpdateTimecodePar(par):
 	parSeconds =  int(par)
 	prettyTime = str(datetime.timedelta(seconds=parSeconds))
 	ipar.UserSettings.Timelinetimecode = prettyTime
 
 
-
-def TimeConverter(par, val=None, updatingSeconds=False):
-	# use par.eval() to get current value
-	name = par.name
-	if name == 'Timelinelength':
-		UpdateSecondsPar(par)
-	elif name == 'Timelinetimecode':
-		UpdateTimecodePar(par, val=par.eval())
-
 def onValueChange(par, prev,val):
 	# use par.eval() to get current value
 	parOwner = par.owner
-
+	print(par.name)
 	if par.name == 'Camerafollowsplayhead':
 		pass
 
 	elif par.name == 'Timelinetimecode':
-		TimeConverter(par, val=val)
+		UpdateSecondsPar(par)
 
 	elif par.name == 'Timelinelength':
 		patternSwitch.par.index = GetZoomPattern(par.eval())
-		TimeConverter(par)
-
 		renderOp = op('Render')
 		renderOp.op('iparCamera').par.Lrange.val = 0
 		renderOp.op('iparCamera').par.Rrange.val = 1
@@ -70,6 +59,8 @@ def onValueChange(par, prev,val):
 		run("op('{}').Zoom(-1,0)".format(renderOp), delayFrames=60)
 		# this fixes the issue of the parameter viewer not updating
 		parent.Main.par.Parametercomp.eval().cook(force=True)
+		UpdateTimecodePar(par)
+
 
 	elif par.name == 'Newtimelinename':
 		name = par.eval()
