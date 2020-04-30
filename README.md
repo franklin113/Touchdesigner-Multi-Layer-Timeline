@@ -19,6 +19,10 @@ With A Cue Selected --
 - Ctrl+z - Undo After deleting or adding a cue
 # Release History
 
+## 0.74 
+### - Snapping
+- Selected cues can now be snapped to the front or back of other cues
+
 ## 0.73
 ### - Project Management
 - Message box has been added to ask the user to save when they close the project or load a new one
