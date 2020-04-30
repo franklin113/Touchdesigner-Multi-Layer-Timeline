@@ -18,34 +18,36 @@ patternSwitch = parent.Main.op('Canvas/base_Settings_Processing/base_GetPattern/
 projectOp = op('Project')
 
 import re
-import time
 import datetime
 
+def UpdateTimecodePar(par, val=None):
+
+	groupPatterns = ['seconds', 'minutes seconds', 'hours minutes seconds']
+	digits = re.search(r'^(([0-5]?[0-9])?:?([0-5]?[0-9])?:?([0-5]?[0-9]))$', val)
+	digitGroups = [int(i) for i in digits.group().split(':')]
+	numDigitGroups = len(digitGroups)
+	timePattern = groupPatterns[numDigitGroups-1].split()
+	timeArgs = dict(zip(timePattern, digitGroups))
+	timeDeltaObj = datetime.timedelta(**timeArgs)
+	prettyTime = str(timeDeltaObj)
+	ipar.UserSettings.Timelinetimecode = prettyTime
+	if int(ipar.UserSettings.Timelinelength) != timeDeltaObj.seconds:
+		ipar.UserSettings.Timelinelength = timeDeltaObj.seconds
+
+def UpdateSecondsPar(par):
+	parSeconds =  int(par)
+	prettyTime = str(datetime.timedelta(seconds=parSeconds))
+	ipar.UserSettings.Timelinetimecode = prettyTime
+
+
+
 def TimeConverter(par, val=None, updatingSeconds=False):
-
-	lastTimeUpdate = me.fetch('PREV_TIME', 0)
-
-	if par.name == 'Timelinelength' and updatingSeconds:
-		prettyTime = str(datetime.timedelta(seconds=int(par)))
-		ipar.UserSettings.Timelinetimecode.val = prettyTime
-		# parent().store('PREV_TIME', time.time())
-		print(lastTimeUpdate-time.time(), 'Timelinelength')
-	elif par.name == 'Timelinetimecode':
-		#print(par, par.val, par.eval(), val)
-		#print(lastTimeUpdate-time.time(), 'Timelinetimecode')
-
-		groupPatterns = ['seconds', 'minutes seconds', 'hours minutes seconds']
-		digits = re.search(r'^(([0-5]?[0-9])?:?([0-5]?[0-9])?:?([0-5]?[0-9]))$', val)
-		digitGroups = [int(i) for i in digits.group().split(':')]
-		numDigitGroups = len(digitGroups)
-		timePattern = groupPatterns[numDigitGroups-1].split()
-		timeArgs = dict(zip(timePattern, digitGroups))
-		timeDeltaObj = datetime.timedelta(**timeArgs)
-		if abs(lastTimeUpdate - time.time()) > .5:
-			ipar.UserSettings.Timelinelength = timeDeltaObj.seconds
-			parent().store('PREV_TIME', time.time())
-
-
+	# use par.eval() to get current value
+	name = par.name
+	if name == 'Timelinelength':
+		UpdateSecondsPar(par)
+	elif name == 'Timelinetimecode':
+		UpdateTimecodePar(par, val=par.eval())
 
 def onValueChange(par, prev,val):
 	# use par.eval() to get current value
@@ -55,16 +57,11 @@ def onValueChange(par, prev,val):
 		pass
 
 	elif par.name == 'Timelinetimecode':
-		# ext.TimelineLogic.ConvertTime(par, localModuleCall=True)
-
 		TimeConverter(par, val=val)
 
 	elif par.name == 'Timelinelength':
 		patternSwitch.par.index = GetZoomPattern(par.eval())
-		prevTime = me.fetch('PREV_TIME', 0)
-		if abs(time.time() - prevTime) > .5:
-			TimeConverter(par, updatingSeconds=True)
-			parent().store('PREV_TIME', time.time())
+		TimeConverter(par)
 
 		renderOp = op('Render')
 		renderOp.op('iparCamera').par.Lrange.val = 0
@@ -73,9 +70,6 @@ def onValueChange(par, prev,val):
 		run("op('{}').Zoom(-1,0)".format(renderOp), delayFrames=60)
 		# this fixes the issue of the parameter viewer not updating
 		parent.Main.par.Parametercomp.eval().cook(force=True)
-
-
-
 
 	elif par.name == 'Newtimelinename':
 		name = par.eval()
