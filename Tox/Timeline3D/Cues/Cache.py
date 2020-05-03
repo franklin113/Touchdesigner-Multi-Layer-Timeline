@@ -100,7 +100,7 @@ class Cache:
 		if isMulti:
 			for ind, i in enumerate(index):
 				self.CuesTable[i,0] = ''
-				run('parent().WriteCache(index = {})'.format(i),delayFrames = (ind+1)*3,fromOP = me)
+				run('parent().WriteCache(index = {})'.format(i),delayFrames = (ind)*3,fromOP = me)
 		else:
 				
 			self.CuesTable[index,0] = ''
