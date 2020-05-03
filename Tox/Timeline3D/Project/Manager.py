@@ -76,6 +76,34 @@ class Manager:
 
 	### Cue Creation
 
+	def AddDropped(self, dropUV, cueSpecList):
+		newOpsList = []
+		renderOp = parent.Main.op('Render')
+
+		dropPosWS = renderOp.UVSpaceToWorldspace(u = dropUV[0], v = dropUV[1])
+		
+		timePos = dropPosWS.x
+		vertDropPos = dropPosWS.y
+		layer = parent.Main.op('RenderPick').WorldspaceToLayer(vertDropPos)
+		
+		ui.undo.startBlock('Add Dropped () - ' + self.myOp.path)
+
+
+		for ind, icueSpec in enumerate(cueSpecList):
+
+			icueSpec.Starttime = timePos
+			icueSpec.Layer = layer
+			newOp = self.AddCue(cueSpec = icueSpec, requiresThumbnail=False)
+			newOpsList.append(newOp)
+
+			timePos += icueSpec.Cuelength
+		
+		self.RenderPickComp.ext.Selection.Selection = newOpsList
+		self.RenderPickComp.ext.Selection.DoSelection(self.RenderPickComp.ext.Selection.Selection, self.RenderPickComp.ext.Selection.OldSelection, select = True)
+		
+		self.ThumbnailCache.AddItem(newOpsList, isMulti=True)
+		ui.undo.endBlock()
+
 	def AddCue(self, cueType = 'Media', name = None, cueSpec = None, copyOp = None, requiresThumbnail = True):
 		'''
 			This method will add cues or layers
@@ -91,7 +119,6 @@ class Manager:
 		'''
 		sourceOp = None
 
-
 		if copyOp:				# we can copy a cue
 			sourceOp = copyOp
 		else:
@@ -99,7 +126,6 @@ class Manager:
 
 
 		newOp = self.CuesOp.copy(sourceOp, name=self.newOpName)
-
 		newOp.tags.add('CueItem')
 
 		newOp.nodeY = 200 * -newOp.digits
@@ -107,22 +133,21 @@ class Manager:
 		if type(cueSpec) == type(self.CueSpec):
 			
 			# run through all the parameters and assign them with setattr
-			
 			for i in newOp.customPars:
 				curParName = i.name
 				if hasattr(cueSpec,curParName):
+					print('has it!')
 					curAttr = getattr(cueSpec,curParName)
 					if curAttr != None:
 						setattr(newOp.par, curParName, curAttr)
 			
 			
-			
-			pass
 		self.CuesOp.op('base_Library/opfind1').cook(force=True)
 		
 		#self.RenderPickComp.UpdateAllBounds()
 		# print(project.pythonStack())
-		self.ThumbnailCache.AddItem(newOp)
+		if requiresThumbnail:
+			self.ThumbnailCache.AddItem(newOp)
 
 		return newOp
 

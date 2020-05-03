@@ -232,6 +232,14 @@ class Transformer:
 
 		return x_max_ss
 
+	def WorldspaceToLayer(self, yPos):
+		
+
+		layersLowerBounds = ipar.SystemSettings.Computedlowerbounds.eval()
+		dropPos = yPos - layersLowerBounds
+		layerHeight = ipar.SystemSettings.Computedlayerheight.eval()
+		layer= math.floor( dropPos / layerHeight)
+		return layer
 
 	def ScreenSpaceToWorldspace(self, x=0, y=0, offset = None):		
 		'''

@@ -81,7 +81,6 @@ class Cache:
 			self.CuesTable[opObj.digits,0] = opObj.path
 			self.WriteCache(index = opObj.digits)
 		
-		
 
 	def DeleteItem(self, index: list, clear: bool =  False, isMulti = False):
 		
