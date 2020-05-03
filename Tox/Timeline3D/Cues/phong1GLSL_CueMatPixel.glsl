@@ -7,7 +7,6 @@ uniform float uZoom;
 in Vertex
 {
 	vec4 color;
-	flat uint64_t instanceTextureHandle;
 	vec2 texCoord0;
 
 	flat int instanceID;
