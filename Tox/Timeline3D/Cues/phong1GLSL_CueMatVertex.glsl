@@ -7,7 +7,6 @@ out Vertex
 	flat int instanceID;
 	flat int selectionIndex;
 	vec4 geoInfoText;
-	vec4 geoInfoThumbnail;
 	float aspect;
 } oVert;
 
@@ -45,17 +44,10 @@ void main()
 	vec4 LB_Text = vec4( GeoInfo.x + offsets[0] , bottom + offsets[1], 0 , 1 );
 	vec4 RT_Text = vec4( GeoInfo.x+ offsets[0] + GeoInfo.z , GeoInfo.y+GeoInfo.w + bottom + offsets[1], 0 , 1 );
 
-	vec4 LB_Thumb = vec4( GeoInfo.x + offsets[0] , bottom+ offsets[1], 0 , 1 );
-	vec4 RT_Thumb = vec4( GeoInfo.x+ GeoInfo.z , GeoInfo.y+GeoInfo.w , 0 , 1 );
-
 
 	// points are converted to projection space, then remapped from that to 0:1 space.
 	vec2 LB_2d_Text = Map( TDWorldToProj( LB_Text ).xy, vec2(-1.0) , vec2(1.0) , vec2(0) , vec2(1) ); // viewportRes.xy 
 	vec2 RT_2d_Text = Map( TDWorldToProj( RT_Text ).xy, vec2(-1.0) , vec2(1.0) , vec2(0) , vec2(1) );
-
-	vec2 LB_2d_Thumb = Map( TDWorldToProj( LB_Thumb ).xy, vec2(-1.0) , vec2(1.0) , vec2(0) , vec2(1) ); // viewportRes.xy 
-	vec2 RT_2d_Thumb = Map( TDWorldToProj( RT_Thumb ).xy, vec2(-1.0) , vec2(1.0) , vec2(0) , vec2(1) );
-
 
 	// LEFT STOP - this important bit causes the left edge of the text to clamp to the left edge of the screen.
 	// since the geo position is conveniently in 0-1 space, 0 being the bottom/left edge of the screen - we can just clamp at 0.

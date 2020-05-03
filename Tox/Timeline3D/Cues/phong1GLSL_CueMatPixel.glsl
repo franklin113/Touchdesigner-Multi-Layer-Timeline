@@ -12,7 +12,6 @@ in Vertex
 	flat int instanceID;
 	flat int selectionIndex;
 	vec4 geoInfoText;
-	vec4 geoInfoThumbnail;
 	float aspect;
 
 } iVert;
@@ -71,12 +70,10 @@ void main()
 
 	// res of the top named sLabel. easier to get res dims this way than passing them in as extra uniforms.
 	vec2 sLabelRes = vec2(textureSize(sLabel,0).xy);
-	vec2 sThumbnailRes = vec2(textureSize(sThumbnail,0).xy);
-
 
 	// XY position in 0:1 space of the geometry.
 	vec2 XY = iVert.geoInfoText.xy;
-	vec2 XY_Thumb = iVert.geoInfoThumbnail.xy;
+	// vec2 XY_Thumb = iVert.geoInfoThumbnail.xy;
 
 	// screen space pixel uvs - just like vUV in a glsl TOP, but instead of normalized, 
 	// in whole integer values in the range of the viewport rendering this shader.
@@ -86,27 +83,16 @@ void main()
 	// texelFetch bypasses the automatic interpolation that texture() applies based on sampler settings.
 	vec2 vUV = (pixelUVs / viewportRes);
 
-
 	// offset the text UVS by the geo's 0:1 screen space position.
 	// NOTE: At this point, the text is still distorted, but tracks with bottom left of geo.
 	vec2 textUVs = vUV-XY;
-	vec2 thumbnailUVs = vUV-XY_Thumb;
-
-	// fix the distortion of the uvs, making the text render at 1:1 native res.
-	// since our uv's originate not from our geometry, but from our screen, we do not need to take into account
-	// the maths of the surface UVS. we have no used those in any way so far.
-	
-	float thumbnailHeight = (iVert.geoInfoThumbnail.w * iVert.geoInfoThumbnail.y);
-	float thumbnailWidth = (iVert.geoInfoThumbnail.z - iVert.geoInfoThumbnail.x);
-	
-	float geoAspect = thumbnailWidth / thumbnailHeight;
 
 	vec2 uv = iVert.texCoord0;
 
 
 	textUVs /= ( sLabelRes / viewportRes );
-	// thumbnailUVs /= ( sThumbnailRes / viewportRes) * thumbnailHeight * 1.5;
-	thumbnailUVs = uv;
+	// thumbnailUVs /= ( ThumbnailRes / viewportRes) * thumbnailHeight * 1.5;
+	vec2 thumbnailUVs = uv;
 	thumbnailUVs.x /= iVert.aspect;
 	thumbnailUVs.x /= uZoom;
 	// sample the label.
@@ -117,7 +103,6 @@ void main()
 	color = Over_Composite( thumbnail , color );
 	color = Over_Composite( label , color );
 	vec3 selectionColors[3] = vec3[](vec3(0.1843, 0.1843, 0.1843),vec3(1.0,1.0,1.0),vec3(1.0, 0.9882, 0.3882));
-
 	
 	// 
 	if (iVert.selectionIndex > 0 ){
@@ -129,7 +114,6 @@ void main()
 	// --- END LUCAS EXAMPLE
 
 	float alpha = 1.;
-
 
 	// Dithering, does nothing if dithering is disabled
 	outcol = TDDither(outcol);
