@@ -93,10 +93,14 @@ class Manager:
 
 			icueSpec.Starttime = timePos
 			icueSpec.Layer = layer
+			if timePos > ipar.UserSettings.Timelinelength.eval():
+				break
 			newOp = self.AddCue(cueSpec = icueSpec, requiresThumbnail=False)
 			newOpsList.append(newOp)
 
 			timePos += icueSpec.Cuelength
+
+		
 		
 		self.RenderPickComp.ext.Selection.Selection = newOpsList
 		self.RenderPickComp.ext.Selection.DoSelection(self.RenderPickComp.ext.Selection.Selection, self.RenderPickComp.ext.Selection.OldSelection, select = True)
