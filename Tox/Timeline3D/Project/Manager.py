@@ -73,6 +73,7 @@ class Manager:
 		# TDF.createProperty(self, 'MyProperty', value=0, dependable=True,
 		# 			readOnly=False)
 
+
 	### Cue Creation
 
 	def AddCue(self, cueType = 'Media', name = None, cueSpec = None, copyOp = None, requiresThumbnail = True):
@@ -197,12 +198,14 @@ class Manager:
 			It just clears selection
 
 		'''
+		self.ThumbnailCache.AddItem(deletedCues,isMulti=True)
+		self.CuesOp.CookCueReferences()
 		for i in deletedCues:
-			self.ThumbnailCache.AddItem(i)
 			i.par.Selected = False
 			i.par.Selectionindex = -1
 		#self.RenderPickComp.UpdateAllBounds()
 		
+	
 
 		parent.Main.op('RenderPick').Selection.clear()
 
@@ -264,6 +267,8 @@ class Manager:
 		return
 
 	### END Cue Destruction
+
+
 
 	### User Settings
 	def SetDefaultUserSettings(self):

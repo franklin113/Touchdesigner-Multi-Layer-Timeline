@@ -75,7 +75,7 @@ class Cache:
 		if isMulti:
 			for ind, i in enumerate(opObj):
 				self.CuesTable[i.digits,0] = i.path
-				run('parent().WriteCache(index = op("{}").digits)'.format(i),delayFrames = (ind+1)*10,fromOP = me)
+				run('parent().WriteCache(index = op("{}").digits)'.format(i),delayFrames = (ind+3)*10,fromOP = me)
 
 		else:
 			self.CuesTable[opObj.digits,0] = opObj.path
@@ -96,10 +96,11 @@ class Cache:
 
 		'''
 		assert type(index) == list or type(index) == int or type(index) == float, "Wrong data type passed to delete item"
+		
 		if isMulti:
 			for ind, i in enumerate(index):
 				self.CuesTable[i,0] = ''
-				run('parent().WriteCache(index = {})'.format(i),delayFrames = ind*3,fromOP = me)
+				run('parent().WriteCache(index = {})'.format(i),delayFrames = (ind+1)*3,fromOP = me)
 		else:
 				
 			self.CuesTable[index,0] = ''
