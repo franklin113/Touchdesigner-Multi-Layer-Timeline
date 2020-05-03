@@ -69,13 +69,13 @@ class Manager:
 		self.DefaultFPS = 60
 		self.TimelineMenu = {'Labels':[],'Names':[]}
 		self.Clipboard = []
-
+		self.ThumbnailCache = self.CuesOp.op('base_CacheBuilder')
 		# TDF.createProperty(self, 'MyProperty', value=0, dependable=True,
 		# 			readOnly=False)
 
 	### Cue Creation
 
-	def AddCue(self, cueType = 'Media', name = None, cueSpec = None, copyOp = None):
+	def AddCue(self, cueType = 'Media', name = None, cueSpec = None, copyOp = None, requiresThumbnail = True):
 		'''
 			This method will add cues or layers
 
@@ -117,21 +117,23 @@ class Manager:
 			
 			
 			pass
+		self.CuesOp.op('base_Library/opfind1').cook(force=True)
 		
-		self.RenderPickComp.UpdateAllBounds()
-		
-
+		#self.RenderPickComp.UpdateAllBounds()
+		# print(project.pythonStack())
+		self.ThumbnailCache.AddItem(newOp)
 
 		return newOp
 
-	def AddDefault(self, startTime = None, layer=None):
+	def AddDefault(self, startTime = None, layer=None, requiresThumbnail = True):
 		'''
 			Allows you to easily create a basic cue.
 			a cueSpec is a python module that allows you to quickly create an object to use with our constructor
 			cueSpec can be found next to this extension
 
 		'''
-		cueSpec = mod.CueSpec.CueSpec(Starttime= startTime, Layer = layer)
+		defaultWidth = parent.Main.op('Render').ScreenSpaceToWorldspace(offset= [500,0]).x
+		cueSpec = mod.CueSpec.CueSpec(Starttime= startTime, Layer = layer, Cuelength = defaultWidth)
 
 		newOp = self.AddCue(cueSpec = cueSpec)
 
@@ -162,12 +164,15 @@ class Manager:
 		currentTime = self.CurrentTimeOp['timer_fraction_WorldPos'].eval()
 		initialTime = self.Clipboard[0].par.Starttime.eval()
 		newCues=[]
+		
 		for i in self.Clipboard:
 
-			newCue = self.AddCue(copyOp=i)
+			newCue = self.AddCue(copyOp=i, requiresThumbnail = False)
 			timeOffset = i.par.Starttime.eval() - initialTime
 			newCue.par.Starttime= currentTime + timeOffset
 			newCues.append(newCue)
+		
+		self.ThumbnailCache.AddItem(newCues, isMulti=True)
 		
 		self.RenderPickComp.ext.Selection.Selection = list(newCues)
 
@@ -175,7 +180,7 @@ class Manager:
 		
 		# self.RenderPickComp.DoSelection(newCues, self.RenderPickComp.OldSelection, select = True)
 
-		self.RenderPickComp.UpdateAllBounds()
+		# self.RenderPickComp.UpdateAllBounds()
 		# self.RenderPickComp.ext.Selection.Selection = newCues
 		
 		ui.undo.endBlock()
@@ -193,9 +198,12 @@ class Manager:
 
 		'''
 		for i in deletedCues:
+			self.ThumbnailCache.AddItem(i)
 			i.par.Selected = False
 			i.par.Selectionindex = -1
-		self.RenderPickComp.UpdateAllBounds()
+		#self.RenderPickComp.UpdateAllBounds()
+		
+
 		parent.Main.op('RenderPick').Selection.clear()
 
 	def RemoveCues(self, selection= True, cueOps = None, clearAll = False):
@@ -210,17 +218,21 @@ class Manager:
 				if you delete a cue, you can hit undo. It will call the UndoRemoveCues callback
 
 		'''
-
 		ui.undo.startBlock('Remove Cues () - ' + self.myOp.path)
 		
 		if clearAll:
+			self.ThumbnailCache.DeleteItem(0, clear = True)
 			for i in self.GetOps(cue=True):
+				
+				
 				i.destroy()
 		
 		if cueOps:
 			ui.undo.addCallback(self.UndoRemoveCues,list(cueOps))
 			
 			for i in cueOps:
+				self.ThumbnailCache.DeleteItem(i)
+				
 				i.destroy()
 		
 		
@@ -229,19 +241,26 @@ class Manager:
 			selectedCues = SelectionOp.Selection
 			
 			ui.undo.addCallback(self.UndoRemoveCues,list(selectedCues))
+			self.ThumbnailCache.DeleteItem([x.digits for x in selectedCues],isMulti=True)
 		
 			for ind, curOp in enumerate(selectedCues):
 				if curOp != None:
 
 					if curOp.name != self.TemplateOp.name: # just make sure somehow it's not the template. it should never be, but...
+						
+						
 						curOp.destroy()
 				else:
 					selectedCues.pop(ind)
 
-
 			SelectionOp.Selection.clear()
-		self.RenderPickComp.UpdateAllBounds()
+		# self.RenderPickComp.UpdateAllBounds()
 		ui.undo.endBlock()
+
+		# self.ThumbnailSetup(replaceAll= True,delay = 1)
+		self.CuesOp.op('base_Library/opfind1').cook(force=True)
+	
+
 		return
 
 	### END Cue Destruction
@@ -251,8 +270,6 @@ class Manager:
 		ipar.UserSettings.Timelinelength = self.DefaultLength
 		ipar.UserSettings.Layercount = self.DefaultNumLayers
 		ipar.UserSettings.Fps = self.DefaultFPS
-		ipar.UserSettings.Zoom = self.DefaultZoom
-		ipar.UserSettings.Cameraposition = self.DefaultCamPosition
 
 	### END User Settings
 
@@ -428,7 +445,10 @@ class Manager:
 		numCues = len(cuesList)			# to determine how many cues we will add
 
 		## Add cues
-		newCueList = [self.AddDefault() for x in range(numCues)]		# add the correct number of cues.
+		
+		newCueList = [self.AddDefault(requiresThumbnail=False) for x in range(numCues)]		# add the correct number of cues.
+
+		self.ThumbnailCache.AddItem(newCueList, isMulti=True)
 
 		for curCue in newCueList:				
 			curJsonDict = cuesList[curCue.name]		# the jsoned object for the cue
@@ -445,6 +465,7 @@ class Manager:
 		ipar.UserSettings.Activetimeline = timelineName
 		ipar.UserSettings.Availabletimelines = timelineName
 		self.TimeOp.GotoTime(seconds = currentTime)
+
 
 	def UpdateLayerInfo(self, layerData):
 		numLayers=  len(layerData)
@@ -515,6 +536,7 @@ class Manager:
 
 		run("op('{}').LoadTimeline('{}',savePrevious=False)".format(self.myOp,firstTimeline),delayFrames=5)
 
+		
 
 		'''	
 			Steps to loading a project: 
@@ -525,6 +547,7 @@ class Manager:
 		'''
 		# pprint(project.pythonStack())
 
+
 	def CloseProject(self, saveBeforeExit=True):
 		
 		if saveBeforeExit:
@@ -534,6 +557,7 @@ class Manager:
 		self.SetSystemToDefault()
 		ipar.UserSettings.Activeproject = ''
 		ipar.UserSettings.File = ''
+		self.ThumbnailSetup(clear=True)
 
 	def SetSystemToDefault(self):
 		self.StoreTimelineData(resetState=True)
@@ -542,6 +566,7 @@ class Manager:
 		################################################
 
 	### END Project File Management
+
 
 	@property
 	def TimelineNames(self):
