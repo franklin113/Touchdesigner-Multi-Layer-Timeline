@@ -203,7 +203,7 @@ class Manager:
 		for i in deletedCues:
 			i.par.Selected = False
 			i.par.Selectionindex = -1
-			
+
 		#self.RenderPickComp.UpdateAllBounds()
 		
 	
