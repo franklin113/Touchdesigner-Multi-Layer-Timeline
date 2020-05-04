@@ -76,5 +76,5 @@ def PerformDrop(args):
         # this takes your info and creates teh cue
         op('Project').AddDropped(dropPos, cueSpecList)
         
-print(args)
+
 drop = PerformDrop(args)
