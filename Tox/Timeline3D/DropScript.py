@@ -44,7 +44,7 @@ def GetRowData(mediaBin):
 
 def PerformDrop(args):
     droppedOpName = args[0]
-    if droppedOpName == parent().par.Lister.eval().name:
+    if droppedOpName == parent(2).par.Lister.eval().name:
         mediaBin = op(args[6] + '/' + args[0])
 
         selectedRowData = GetRowData(mediaBin)
