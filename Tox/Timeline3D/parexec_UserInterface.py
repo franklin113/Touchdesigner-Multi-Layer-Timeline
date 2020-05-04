@@ -60,6 +60,8 @@ def onValueChange(par, prev,val):
 		# this fixes the issue of the parameter viewer not updating
 		parent.Main.par.Parametercomp.eval().cook(force=True)
 		UpdateTimecodePar(par)
+		layerheight = op('Render').ScreenSpaceToWorldspace(x= 0, offset = (100,100) ).x
+		op('base_ss2ws').par.Onehundredpixels.val = layerheight
 
 
 	elif par.name == 'Newtimelinename':
