@@ -61,7 +61,9 @@ def onValueChange(par, prev,val):
 		parent.Main.par.Parametercomp.eval().cook(force=True)
 		UpdateTimecodePar(par)
 		layerheight = op('Render').ScreenSpaceToWorldspace(x= 0, offset = (100,100) ).x
+		topPoint = op('Render').ScreenSpaceToWorldspace(y= parent().height ).y
 		op('base_ss2ws').par.Onehundredpixels.val = layerheight
+		op('base_ss2ws').par.Topmostpoint.val = topPoint
 
 
 	elif par.name == 'Newtimelinename':
