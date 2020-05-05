@@ -334,6 +334,7 @@ class RenderPick:
 
 		outsideX, outsideY, directionX, directionY = False, False, 0, 0
 
+
 		if self.ClickType == 1: # Left Click
 			if self.IsTimelineItem:	# if we are dragging a cue - 
 
