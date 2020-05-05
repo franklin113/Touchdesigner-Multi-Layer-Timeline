@@ -33,6 +33,7 @@ class Cache:
 		self.switch.par.index =  1
 		self.text3DA.par.replacesingle.val = False
 		self.text3DB.par.replacesingle.val = False
+		op('timer1').par.active = False
 
 	def WriteCache(self, index=None, replaceAll = False, clear = False):
 		'''
@@ -48,7 +49,9 @@ class Cache:
 
 			self.text3DA.par.replacesingle.val = True
 			self.text3DB.par.replacesingle.val = True
-			run("op('{}').par.start.pulse()".format(op('timer1')),delayFrames=5)
+			timer = op('timer1')
+			timer.par.active = True
+			run("op('{}').par.start.pulse()".format(timer),delayFrames=5)
 
 			# run("op('{}').EndReplaceAll()".format(parent()),delayFrames = self.ownerComp.par.Arraysize.eval())
 		if index != None:
