@@ -340,7 +340,7 @@ class RenderPick:
 				try:
 					self.SelectedBounds = self.myOp.GetBounds(ext.Selection.Selection[0].par.Tx.eval() ,ext.Selection.Selection[0].par.Ty.eval(), ext.Selection.Selection[0].par.Cuelength.eval())
 					outsideX, outsideY, directionX, directionY = self.myOp.IsOutsideBounds(self.SelectedBounds,currentClickPosition)
-					ext.Bounds.UpdateAllBounds()
+					# ext.Bounds.UpdateAllBounds()
 				except Exception as e:
 					print(e)
 				if event.pickOp == None:
