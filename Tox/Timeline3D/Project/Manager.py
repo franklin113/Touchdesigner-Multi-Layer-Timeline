@@ -592,7 +592,6 @@ class Manager:
 		self.SetSystemToDefault()
 		ipar.UserSettings.Activeproject = ''
 		ipar.UserSettings.File = ''
-		self.ThumbnailSetup(clear=True)
 
 	def SetSystemToDefault(self):
 		self.StoreTimelineData(resetState=True)

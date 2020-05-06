@@ -101,6 +101,8 @@ class RenderPick:
 		self.ProposedStartPar = parent.Main.op('Cues/base_Snapping/constant_ProposedStartTime').par.value0
 		self.ProposedEndPar = parent.Main.op('Cues/base_Snapping/constant_ProposedStartTime').par.value1
 
+		self.TransformType = 0 # 0 = move, 1 = stretch
+
 	def EventSelectStart(self, renderPickDat, event, eventPrev):
 		'''	
 			Description: Here we handle interactions on initial click
@@ -201,12 +203,14 @@ class RenderPick:
 			# print(self.ClickMapUV.x, 1.0 - finalStretchRegion)
 			# if self.ClickMapUV.x > 1.0 - finalStretchRegion : # STRETCH
 			if IsClickStretch : # STRETCH
-				
+				self.TransformType = 1
 				self.CanStretch = True
 				self.CanDragVertically = False
 				self.CanTranslate = False
 			
 			else:	# START TIME CHANGE
+				self.TransformType = 0
+
 				self.CanStretch = False
 				self.CanDragVertically = True
 				self.CanTranslate = True
@@ -311,7 +315,8 @@ class RenderPick:
 
 		for i in selectionNames:
 			# selectedChop.value0.
-			chans.extend([i + ':' + 'Starttime', i + ':' + 'Computedendtime'])
+			# chans.extend([i + ':' + 'Starttime', i + ':' + 'Computedendtime'])
+			chans.extend([i + ':' + 'Starttime', i + ':' + 'Cuelength'])
 
 
 		finalChanNames = chans
@@ -347,12 +352,20 @@ class RenderPick:
 					return
 
 				newGeoPosition = None
-				sortedClickPos = sorted(self.ClickPositionOffsets, key = lambda x: x.x)
+
+				offsets = self.ClickPositionOffsets if self.CanTranslate else self.OffsetFromEndTime
+				sortedClickPos = sorted(offsets, key = lambda x: x.x)
 				sortedSelection = sorted(ext.Selection.Selection, key = lambda x: x.par.Starttime.eval())
 
-				selectionBlockStartTime = currentClickPosition.x + sortedClickPos[0].x
-				selectionBlockEndTime = currentClickPosition.x + sortedClickPos[-1].x + sortedSelection[-1].par.Cuelength.eval()
-				
+				if self.CanTranslate:# or self.CanStretch:
+					selectionBlockStartTime = currentClickPosition.x + sortedClickPos[0].x
+					selectionBlockEndTime = currentClickPosition.x + sortedClickPos[-1].x + sortedSelection[-1].par.Cuelength.eval()
+				elif self.CanStretch:
+					selectionBlockStartTime = sortedSelection[0].par.Starttime.eval()
+					selectionBlockEndTime = sortedClickPos[-1].x + currentClickPosition.x				
+					#print('block start time', selectionBlockStartTime)
+					#print('block end time', selectionBlockEndTime)
+
 				self.ProposedStartPar.val = selectionBlockStartTime
 				self.ProposedEndPar.val = selectionBlockEndTime
 				
@@ -363,11 +376,11 @@ class RenderPick:
 
 				for ind, obj in enumerate(ext.Selection.Selection):
 					
-					if self.CanStretch: # Stretch our cue
+					# if self.CanStretch: # Stretch our cue
 
-						curTime = currentClickPosition + self.OffsetFromEndTime[ind]
-						deltaTime = curTime.x - obj.par.Computedendtime.eval()
-						self.SetLength(obj, deltaTime, addTo = True)
+					# 	curTime = currentClickPosition + self.OffsetFromEndTime[ind]
+					# 	deltaTime = curTime.x - obj.par.Computedendtime.eval()
+					# 	self.SetLength(obj, deltaTime, addTo = True)
 
 					if outsideY and self.CanDragVertically:	# change the layer of our cue
 						
@@ -396,9 +409,6 @@ class RenderPick:
 
 						self.TimeComp.GotoTime(seconds = timePosition)
 					
-
-			
-
 		elif self.ClickType == 4:	# Right Click
 		
 			if self.IsBoxSelect: # perform our box selection
@@ -441,7 +451,6 @@ class RenderPick:
 
 			params: timeOffset - the value coming from the snapping callbacks 
 				This will offset our cues by a value to lock it in place.
-
 		'''
 
 		for ind, obj in enumerate(ext.Selection.Selection):
@@ -456,6 +465,29 @@ class RenderPick:
 					proposedStartTime -= timeOffset		
 
 				self.SetStartTime(proposedStartTime, obj)
+			elif self.CanStretch:
+				#print('begining of can stretch value offset : ', timeOffset)		
+				
+				# THESE TWO LINES ARE WHAT WORKS!
+				####curTime = self.currentClickPosition + self.OffsetFromEndTime[ind]
+				####deltaTime = curTime.x - obj.par.Computedendtime.eval()
+				
+				# the current end time
+				curTime = self.currentClickPosition + self.OffsetFromEndTime[ind]
+				curTime = curTime.x
+				# print(curTime)
+				length = curTime - obj.par.Starttime.eval() # length of the cue
+				#print('inside can stretch, and length of : ', length)
+				#newEndTime = curTime.x - length
+				# print(newEndTime)
+
+				if timeOffset != None and timeOffset != 0.0 and ipar.UserSettings.Snapping.eval():
+					length -= timeOffset
+					#print('offset : ', length)		
+
+				finalLength = length
+
+				self.SetLength(obj, finalLength)
 
 	def SetStartTime(self, startTime, Cue):
 
@@ -545,7 +577,7 @@ class RenderPick:
 			curObjPositionX = i.par.Tx.eval()
 			curObjPositionY = i.par.Ty.eval()
 			curLayer = i.par.Layer.eval()
-			curEndTimePos = i.par.Computedendtime.eval()
+			curEndTimePos = i.par.Starttime.eval() + i.par.Cuelength.eval()
 
 			self.Layers.append(curLayer)
 			self.StartTimes.append(curStartTime)

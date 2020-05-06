@@ -6,6 +6,7 @@ timeConst = op('constant_ProposedStartTime')
 
 prevOffset = 0
 prevStartTime = 0
+prevEndTime = 0
 # press 'Setup Parameters' in the OP to call this function to re-create the parameters.
 def onSetupParameters(scriptOp):
 	page = scriptOp.appendCustomPage('Custom')
@@ -17,7 +18,7 @@ def onPulse(par):
 	return
 
 def onCook(scriptOp):
-	global prevStartTime
+	global prevStartTime, prevEndTime
 
 	scriptOp.clear()
 	proposedTime = scriptOp.inputs[4]['startTime'].eval() 		# the time given to us by the render pick ext
@@ -39,19 +40,25 @@ def onCook(scriptOp):
 
 	timeOffset = 0	# the time that we will be offseting all our cues
 
-	if thresholdTestA:
+	if thresholdTestA and prevStartTime != proposedTime:
 		timeOffset = proposedTime - closestValA
+		#print('testA: ', timeOffset)
+
 	
-	elif thresholdTestB:
+	elif thresholdTestB and prevEndTime != proposedEndTime:
+		# if renderPickComp.TransformType.eval() == 0:
 		timeOffset = proposedEndTime - closestValB
+		#print('testB: ',timeOffset)
+		# elif renderPickComp.TransformType.eval() == 1:
+		# 	timeOffset = 
 
 	c= scriptOp.appendChan('FinalTime')	# we aren't really using this, but it causes it to cook
 	c[0] = timeOffset
 
 
-	if prevStartTime != proposedTime: # Don't assing anything if it hasn't changed.
+	if prevEndTime != proposedEndTime or prevStartTime != proposedTime : # Don't assing anything if it hasn't changed.
 		renderPickComp.SetAllSelectionStartTimes(timeOffset = timeOffset)
 
 	prevStartTime = proposedTime	# to fix a cooking issue, don't do anything if prev and proposed are the same.
-
+	prevEndTime = proposedEndTime
 	return
