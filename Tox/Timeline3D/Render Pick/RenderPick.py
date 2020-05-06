@@ -174,7 +174,6 @@ class RenderPick:
 				self.SetTimer(gotoTime=True,seconds=selectedItem.par.Starttime.eval())
 			
 			uvAspect = selectedItem.par.Uvaspect.eval()
-			
 			timelineLength = self.MainOp.op('Canvas/null_Settings')['normalizedLength'].eval()
 
 
@@ -373,7 +372,7 @@ class RenderPick:
 					if outsideY and self.CanDragVertically:	# change the layer of our cue
 						
 						curLayer = obj.par.Layer
-						layerCount = self.User.Layercount.eval()
+						layerCount = parent.Main.op('base_GeneralCalcs/null_MinLayerCount')['Layercount'].eval()
 
 						if min(self.Layers) + directionY >= 0 and max(self.Layers) + directionY < layerCount:
 							obj.par.Layer += directionY
