@@ -60,7 +60,7 @@ def PerformDrop(args):
                 'Cuetype'   : 'Media',
                 'Title'     : file.Name,
                 'Imagefile' : file.Path,
-                'Thumbnail' : file.Thumb,
+                'Thumbnail' : file.ThumbTOPPath,
                 'Cuelength' : file.Seconds,
                 'Backgroundcolor' : None,
             }
