@@ -6,11 +6,11 @@ A general purpose multi-layer timeline system, TD-MTL's main goal is to provide 
 
 # Installation: 
 Within the release folder you will find a self contained tox file. Bring that into your project and make it an external tox. You don't want this to be saved within your project because whenever you save it can take a while. 
-From there you can read the sections on how to use it.
+To test it out, check the examples folder for media bins and video compositing systems.
 
 
 # Usage:
-Because this tool is meant to be open to a variety of projects, it's not 100% ready to go out of the box. The timeline itself just outputs time and cue information. To make it functional out of the box, you can look at the "Examples" folder while includes video players and media bins.
+Because this tool is meant to be open to a variety of projects, it's not 100% ready to go out of the box. The timeline itself just outputs timing and cue information. To make it functional out of the box, you can look at the "Examples" folder which includes video players and media bins.
 
 TD-MTL provides a variety of cue types, such as "Media", "Tox", "TCP/IP", and more. A user can also build custom cue types that can store other data to assist in triggering all types of cues. With this openness in mind, we may not provide systems to fire all these types of cues. Out examples are meant to assist in the development of customized solutions.
 
