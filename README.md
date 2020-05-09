@@ -6,7 +6,7 @@ A general purpose multi-layer timeline system, TD-MTL's main goal is to provide 
 
 # Installation: 
 Within the release folder you will find a self contained tox file. Bring that into your project and make it an external tox. You don't want this to be saved within your project because whenever you save it can take a while. 
-To test it out, check the examples folder for media bins and video compositing systems.
+To test it out, check the examples folder for media bins and video compositing systems. (coming soon)
 
 
 # Usage:
