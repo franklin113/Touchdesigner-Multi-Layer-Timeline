@@ -42,39 +42,37 @@ def GetRowData(mediaBin):
     return selectedRows
 
 
+
 def PerformDrop(args):
     droppedOpName = args[0]
-    if droppedOpName == parent().par.Lister.eval().name:
-        mediaBin = op(args[6] + '/' + args[0])
+    droppedOpPath = args[6]
+    if droppedOpName == parent(2).par.Lister.eval().name:
+        mediaBin = op(droppedOpPath).op(droppedOpName)
+        selectedFiles = mediaBin.SelectedRowObjects
 
-        selectedRowData = GetRowData(mediaBin)
         # don't touch this - sets the position
         dropPos = (parent().panel.insideu, parent().panel.insidev)
-        
         cueSpecList = []
-        
-        for iCurRow in selectedRowData:
-            filename, path = iCurRow
-
-            ### Build new CueSpec keyword dict
-            ### We handle time position and layer internally so just leave those out
+        for file in selectedFiles:
+        #     ### Build new CueSpec keyword dict
+        #     ### We handle time position and layer internally so just leave those out
             cueSpecArgs = {
                 'Cuetype'   : 'Media',
-                'Title'     : filename,
-                'Imagefile' : path,
-                'Thumbnail' : None,
-                'Cuelength' : 5,
+                'Title'     : file.Name,
+                'Imagefile' : file.Path,
+                'Thumbnail' : file.ThumbTOPPath,
+                'Cuelength' : file.Seconds,
                 'Backgroundcolor' : None,
             }
 
-            # create the cueSpec
+        #     create the cueSpec
             cueSpec = op('Project').mod.CueSpec.CueSpec(**cueSpecArgs)
             
-            ## Provide the UV coords and a desired cueSpec
+        #     # Provide the UV coords and a desired cueSpec
             cueSpecList.append(cueSpec)
             
         # this takes your info and creates teh cue
         op('Project').AddDropped(dropPos, cueSpecList)
         
-print(args)
+
 drop = PerformDrop(args)
