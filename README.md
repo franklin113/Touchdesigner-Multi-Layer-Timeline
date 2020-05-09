@@ -1,4 +1,4 @@
-# TD-MTL
+# TD-MTL: A Multi-Layer Timeline System Built in TouchDesigner
 
 # Description:
 
