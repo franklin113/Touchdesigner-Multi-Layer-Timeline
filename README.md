@@ -24,6 +24,7 @@ Any bug reports, issue tracking, feature requests, and documentation assistance 
 
 # Credits:
 Tim Franklin
+
 Brian Alexander
 
 # License:
