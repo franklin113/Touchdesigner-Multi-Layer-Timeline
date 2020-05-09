@@ -1,4 +1,38 @@
-# Touchdesigner-Multi-Layer-Timeline
+# TD-MTL
+
+# Description:
+
+A general purpose multi-layer timeline system, TD-MTL's main goal is to provide the TouchDesigner community with a timeline system for all types of work. With the general purpose concept in mind, the system can be customized in many ways.
+
+# Installation: 
+Within the release folder you will find a self contained tox file. Bring that into your project and make it an external tox. You don't want this to be saved within your project because whenever you save it can take a while. 
+From there you can read the sections on how to use it.
+
+
+# Usage:
+Because this tool is meant to be open to a variety of projects, it's not 100% ready to go out of the box. The timeline itself just outputs time and cue information. To make it functional out of the box, you can look at the "Examples" folder while includes video players and media bins.
+
+TD-MTL provides a variety of cue types, such as "Media", "Tox", "TCP/IP", and more. A user can also build custom cue types that can store other data to assist in triggering all types of cues. With this openness in mind, we may not provide systems to fire all these types of cues. Out examples are meant to assist in the development of customized solutions.
+
+See the wiki for how to build a custom Timeline System.
+
+
+# Contributing:
+The most useful types of contributions would be sharing your custom media bins and players for our examples folder. 
+
+Any bug reports, issue tracking, feature requests, and documentation assistance would also be fantastic. 
+
+# Credits:
+Tim Franklin
+Brian Alexander
+
+# License:
+TDOO
+
+
+
+# Old documentation below, will get put into a wiki.
+
 
 # Usage
 
