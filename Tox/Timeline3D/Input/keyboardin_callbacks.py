@@ -23,7 +23,7 @@ def onKey(dat, key, character, alt, lAlt, rAlt, ctrl, lCtrl, rCtrl, shift, lShif
 	if state == 1: # only trigger on release
 		return
 
-	if key == 'delete':
+	if key == 'delete' or key == 'backspace':
 		manager.RemoveCues()
 
 	return

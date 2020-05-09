@@ -46,7 +46,7 @@ class RenderPick:
 		}
 
 		self.PageScope = {
-			'Cue' : 'Settings',
+			'Cue' : 'Settings Specialized',
 			'Layer' : 'Layer',
 			'Bg' : 'Settings Camera Project'
 		}

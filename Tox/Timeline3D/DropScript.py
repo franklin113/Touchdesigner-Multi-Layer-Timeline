@@ -63,6 +63,7 @@ def PerformDrop(args):
                 'Thumbnail' : file.ThumbTOPPath,
                 'Cuelength' : file.Seconds,
                 'Backgroundcolor' : None,
+                'customTypePage' : None
             }
 
         #     create the cueSpec

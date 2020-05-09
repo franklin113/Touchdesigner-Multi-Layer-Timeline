@@ -127,23 +127,40 @@ class Manager:
 			sourceOp = copyOp
 		else:
 			sourceOp = self.TemplateOp	# or we can create a new cue from the template
-
+		
+		
 
 		newOp = self.CuesOp.copy(sourceOp, name=self.newOpName)
 		newOp.tags.add('CueItem')
-
 		newOp.nodeY = 200 * -newOp.digits
 
 		if type(cueSpec) == type(self.CueSpec):
+			if cueSpec.CustomTypePage != None:
+				jsonDict = TDJ.pageToJSONDict(cueSpec.CustomTypePage)
+				advancedPage = newOp.customPages
+				advancedPage = [x for x in advancedPage if x.name == 'Specialized']
+				advancedPage[0].destroy()
+				TDJ.addParametersFromJSONDict(newOp, jsonDict, replace=True, setValues=True, destroyOthers=False, newAtEnd=True, fixParNames=True)
 			
+			else:
+				cueTypePage = self.CuesOp.op('CueTypes').GetTypePage(cueSpec.Cuetype)
+				jsonDict = TDJ.pageToJSONDict(cueTypePage)
+				advancedPage = newOp.customPages
+				advancedPage = [x for x in advancedPage if x.name == 'Specialized']
+				advancedPage[0].destroy()
+
+				TDJ.addParametersFromJSONDict(newOp, jsonDict, replace=True, setValues=True, destroyOthers=False, newAtEnd=True, fixParNames=True)
+
+
 			# run through all the parameters and assign them with setattr
 			for i in newOp.customPars:
 				curParName = i.name
+				print(curParName)
 				if hasattr(cueSpec,curParName):
-					print('has it!')
 					curAttr = getattr(cueSpec,curParName)
 					if curAttr != None:
 						setattr(newOp.par, curParName, curAttr)
+				
 			
 			
 		self.CuesOp.op('base_Library/opfind1').cook(force=True)
@@ -163,7 +180,7 @@ class Manager:
 
 		'''
 		defaultWidth = parent.Main.op('Render').ScreenSpaceToWorldspace(offset= [500,0]).x
-		cueSpec = mod.CueSpec.CueSpec(Starttime= startTime, Layer = layer, Cuelength = defaultWidth)
+		cueSpec = mod.CueSpec.CueSpec(Cuetype ="Media", Starttime= startTime, Layer = layer, Cuelength = defaultWidth)
 
 		newOp = self.AddCue(cueSpec = cueSpec)
 
@@ -462,7 +479,7 @@ class Manager:
 		timelines = self.Timelines 					# all your timelines' data
 
 		toLoadTimeline = timelines[timelineName]	# the timeline we are loading up
-
+		print("To Load Timeline: ", timelineName)
 		activeTimelineBeforeLoad = self.ActiveTimeline 		# the timeline active prior to our load
 		
 		if savePrevious:
@@ -488,7 +505,7 @@ class Manager:
 		for curCue in newCueList:				
 			curJsonDict = cuesList[curCue.name]		# the jsoned object for the cue
 			self.SetItemData(curCue,curJsonDict)	# set all the custom parameters to the cue
-
+		self.CuesOp.op('base_Library/opfind1').cook(force=True)
 		## Update user settings
 		self.SetItemData(self.UserSettingsOp,userList['iparUserSettings']) # set user settings
 
