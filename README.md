@@ -18,7 +18,7 @@ See the wiki for how to build a custom Timeline System.
 
 
 # Contributing:
-The most useful types of contributions would be sharing your custom media bins and players for our examples folder. 
+The most useful types of contributions would be sharing your custom media bins and players for our examples folder. If you find a cool way to use it in your project, any demos or examples would be awesome.
 
 Any bug reports, issue tracking, feature requests, and documentation assistance would also be fantastic. 
 
