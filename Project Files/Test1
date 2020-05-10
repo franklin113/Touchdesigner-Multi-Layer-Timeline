@@ -1,0 +1,819 @@
+{
+    "UserSettings": {
+        "iparUserSettings": {
+            "Project": [
+                [
+                    "Activetimeline",
+                    "const",
+                    "Test2"
+                ],
+                [
+                    "Newtimelinename",
+                    "const",
+                    ""
+                ],
+                [
+                    "Createtimeline",
+                    "const",
+                    0
+                ],
+                [
+                    "Availabletimelines",
+                    "const",
+                    "Test2"
+                ],
+                [
+                    "Loadtimeline",
+                    "const",
+                    0
+                ],
+                [
+                    "Deletetimeline",
+                    "const",
+                    0
+                ],
+                [
+                    "Activeproject",
+                    "const",
+                    "Project Files/Test1"
+                ],
+                [
+                    "File",
+                    "const",
+                    "Project Files/Test1"
+                ],
+                [
+                    "Save",
+                    "const",
+                    0
+                ],
+                [
+                    "Loadproject",
+                    "const",
+                    0
+                ],
+                [
+                    "Closeproject",
+                    "const",
+                    0
+                ],
+                [
+                    "Savebackups",
+                    "const",
+                    false
+                ],
+                [
+                    "Autosaveonexit",
+                    "const",
+                    false
+                ]
+            ]
+        }
+    },
+    "SystemData": {
+        "Version": "0.75",
+        "Author": "Tim Franklin",
+        "AuthorEmail": "timsfranklin1@gmail.com",
+        "TD_Build": "2020.22080",
+        "OS_Name": "macOS",
+        "OS_Version": "10.15.3"
+    },
+    "Timelines": {
+        "": {
+            "Cues": {},
+            "Layers": {
+                "base_Layer0": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer1": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer2": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer3": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer4": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "User": {
+                "iparUserSettings": {
+                    "Camera": [
+                        [
+                            "Invertscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Invertverticalscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Shiftscrollscrolls",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Zoomspeed",
+                            "const",
+                            6.0
+                        ],
+                        [
+                            "Camerafollowsplayhead",
+                            "const",
+                            false
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Snapping",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Timelinelength",
+                            "const",
+                            30.0
+                        ],
+                        [
+                            "Timelinetimecode",
+                            "const",
+                            "0:00:30"
+                        ],
+                        [
+                            "Playheadthickness",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Scrubbarheight",
+                            "const",
+                            1.085
+                        ],
+                        [
+                            "Cueheight",
+                            "const",
+                            0.893
+                        ],
+                        [
+                            "Fps",
+                            "const",
+                            60.0
+                        ],
+                        [
+                            "Layerheight",
+                            "const",
+                            0.823
+                        ],
+                        [
+                            "Layercount",
+                            "const",
+                            5
+                        ],
+                        [
+                            "Addcue",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "TimePosition": 6.972663879394531
+        },
+        "Test2": {
+            "Cues": {
+                "base_Cue0": {
+                    "Specialized": [
+                        [
+                            "Media",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Triminout1",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Triminout2",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Cuetype",
+                            "const",
+                            "Media"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "Butterfly5.tif"
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            14.0
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            1
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ]
+                    ]
+                },
+                "base_Cue1": {
+                    "Specialized": [
+                        [
+                            "Media",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Triminout1",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Triminout2",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Cuetype",
+                            "const",
+                            "Media"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "BoxMap.tif"
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            13.215034484863281
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            14.0
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            2
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ]
+                    ]
+                },
+                "base_Cue2": {
+                    "Specialized": [
+                        [
+                            "Media",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Triminout1",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Triminout2",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Cuetype",
+                            "const",
+                            "Media"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "Banana.tif"
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            10.39466667175293
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            2.8203682899475098
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            0
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ]
+                    ]
+                }
+            },
+            "Layers": {
+                "base_Layer0": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer1": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer2": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer3": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer4": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "User": {
+                "iparUserSettings": {
+                    "Camera": [
+                        [
+                            "Invertscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Invertverticalscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Shiftscrollscrolls",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Zoomspeed",
+                            "const",
+                            6.0
+                        ],
+                        [
+                            "Camerafollowsplayhead",
+                            "const",
+                            false
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Snapping",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Timelinelength",
+                            "const",
+                            30.0
+                        ],
+                        [
+                            "Timelinetimecode",
+                            "const",
+                            "0:00:30"
+                        ],
+                        [
+                            "Playheadthickness",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Scrubbarheight",
+                            "const",
+                            1.085
+                        ],
+                        [
+                            "Cueheight",
+                            "const",
+                            0.893
+                        ],
+                        [
+                            "Fps",
+                            "const",
+                            60.0
+                        ],
+                        [
+                            "Layerheight",
+                            "const",
+                            0.823
+                        ],
+                        [
+                            "Layercount",
+                            "const",
+                            5
+                        ],
+                        [
+                            "Addcue",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "TimePosition": 6.972663879394531
+        },
+        "Test1": {
+            "Cues": {},
+            "Layers": {
+                "base_Layer0": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer1": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer2": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer3": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer4": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "User": {
+                "iparUserSettings": {
+                    "Camera": [
+                        [
+                            "Invertscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Invertverticalscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Shiftscrollscrolls",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Zoomspeed",
+                            "const",
+                            6.0
+                        ],
+                        [
+                            "Camerafollowsplayhead",
+                            "const",
+                            false
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Snapping",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Timelinelength",
+                            "const",
+                            30.0
+                        ],
+                        [
+                            "Timelinetimecode",
+                            "const",
+                            "0:00:30"
+                        ],
+                        [
+                            "Playheadthickness",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Scrubbarheight",
+                            "const",
+                            1.085
+                        ],
+                        [
+                            "Cueheight",
+                            "const",
+                            0.893
+                        ],
+                        [
+                            "Fps",
+                            "const",
+                            60.0
+                        ],
+                        [
+                            "Layerheight",
+                            "const",
+                            0.823
+                        ],
+                        [
+                            "Layercount",
+                            "const",
+                            5
+                        ],
+                        [
+                            "Addcue",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "TimePosition": 4.86328125
+        }
+    }
+}
