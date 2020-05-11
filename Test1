@@ -1,0 +1,361 @@
+{
+    "UserSettings": {
+        "iparUserSettings": {
+            "Project": [
+                [
+                    "Activetimeline",
+                    "const",
+                    ""
+                ],
+                [
+                    "Newtimelinename",
+                    "const",
+                    ""
+                ],
+                [
+                    "Createtimeline",
+                    "const",
+                    0
+                ],
+                [
+                    "Availabletimelines",
+                    "const",
+                    "0"
+                ],
+                [
+                    "Loadtimeline",
+                    "const",
+                    0
+                ],
+                [
+                    "Deletetimeline",
+                    "const",
+                    0
+                ],
+                [
+                    "Activeproject",
+                    "const",
+                    "Test1"
+                ],
+                [
+                    "File",
+                    "const",
+                    "Test1"
+                ],
+                [
+                    "Save",
+                    "const",
+                    0
+                ],
+                [
+                    "Loadproject",
+                    "const",
+                    0
+                ],
+                [
+                    "Closeproject",
+                    "const",
+                    0
+                ],
+                [
+                    "Savebackups",
+                    "const",
+                    false
+                ],
+                [
+                    "Autosaveonexit",
+                    "const",
+                    false
+                ]
+            ]
+        }
+    },
+    "SystemData": {
+        "Version": "0.76",
+        "Author": "Tim Franklin",
+        "AuthorEmail": "timsfranklin1@gmail.com",
+        "TD_Build": "2020.22080",
+        "OS_Name": "macOS",
+        "OS_Version": "10.15.3"
+    },
+    "Timelines": {
+        "": {
+            "Cues": {
+                "base_Cue0": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Script"
+                        ],
+                        [
+                            "Basic",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            2.283
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            4.19106
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            4
+                        ],
+                        [
+                            "Advanced",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ]
+                    ],
+                    "Advanced": [
+                        [
+                            "Script",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Scripttype",
+                            "const",
+                            "Dat"
+                        ],
+                        [
+                            "Command",
+                            "const",
+                            ""
+                        ],
+                        [
+                            "Dat",
+                            "const",
+                            ""
+                        ]
+                    ]
+                }
+            },
+            "Layers": {
+                "base_Layer0": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer1": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer2": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer3": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer4": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer5": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer6": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer7": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "User": {
+                "iparUserSettings": {
+                    "Settings": [
+                        [
+                            "Snapping",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Timelinelength",
+                            "const",
+                            3600.0
+                        ],
+                        [
+                            "Timelinetimecode",
+                            "const",
+                            "1:00:00"
+                        ],
+                        [
+                            "Playheadthickness",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Scrubbarheight",
+                            "const",
+                            1.085
+                        ],
+                        [
+                            "Cueheight",
+                            "const",
+                            0.893
+                        ],
+                        [
+                            "Fps",
+                            "const",
+                            60.0
+                        ],
+                        [
+                            "Layerheight",
+                            "const",
+                            0.823
+                        ],
+                        [
+                            "Layercount",
+                            "const",
+                            8
+                        ],
+                        [
+                            "Addcue",
+                            "const",
+                            0
+                        ]
+                    ],
+                    "Camera": [
+                        [
+                            "Invertscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Invertverticalscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Shiftscrollscrolls",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Zoomspeed",
+                            "const",
+                            6.0
+                        ],
+                        [
+                            "Camerafollowsplayhead",
+                            "const",
+                            false
+                        ]
+                    ]
+                }
+            },
+            "TimePosition": 1776.702392578125
+        }
+    }
+}
