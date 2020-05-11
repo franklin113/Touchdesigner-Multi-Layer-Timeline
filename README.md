@@ -1,5 +1,7 @@
 # TD-MTL
 
+This document is currently actually referencing functionality within the dev branch as I'm preparing to release a 1.0 version.
+
 # Description:
 
 A general purpose multi-layer timeline system, TD-MTL's main goal is to provide the TouchDesigner community with a timeline system for all types of work. With the general purpose concept in mind, the system can be customized in many ways. Whether you want to time out OSC cues, video media compositing, or external tox presets, our system can assist you.
