@@ -76,11 +76,28 @@ class Manager:
 
 	### Cue Creation
 
-	def AddDropped(self, dropUV, cueSpecList):
+	def AddDropped(self, dropUV: tuple, cueSpecList: list, cueSpecializationParsList: list = None) -> bool:
+		"""This function is where we process drop script info.
+		The general idea is, pass in a uv coordinate for the drop,
+		and provide a list of CueSpec objects. CueSpec's can be found 
+		within this component. It provides an interface for building cues.
+
+		The CueSpec is only meant for the General cue information. Specialized 
+		cue parameters are passed seperately.
+
+		Arguments:
+			dropUV {tuple} -- uv coordinates of the drop
+			cueSpecList {list} -- list of CueSpec objects which define the General Properties of the cue
+			cueSpecializationParsList {list} -- list of parameters which define the Specialized Properties of the cue
+
+		Returns:
+			bool -- Success state --- True if success, False if fail
+		"""
+
 		newOpsList = []
 		renderOp = parent.Main.op('Render')
 
-		dropPosWS = renderOp.UVSpaceToWorldspace(u = dropUV[0], v = dropUV[1])
+		dropPosWS = renderOp.UVSpaceToWorldspace(u = dropUV[0], v = dropUV[1]) 
 		
 		timePos = dropPosWS.x
 		vertDropPos = dropPosWS.y
@@ -95,7 +112,7 @@ class Manager:
 			icueSpec.Layer = layer
 			if timePos > ipar.UserSettings.Timelinelength.eval():
 				break
-			newOp = self.AddCue(cueSpec = icueSpec, requiresThumbnail=False)
+			newOp = self.AddCue(cueSpec = icueSpec, cueSpecializationPars = cueSpecializationParsList[ind] , requiresThumbnail=False)
 			newOpsList.append(newOp)
 
 			timePos += icueSpec.Cuelength
@@ -107,34 +124,41 @@ class Manager:
 		
 		self.ThumbnailCache.AddItem(newOpsList, isMulti=True)
 		ui.undo.endBlock()
+		return True
 
-	def AddCue(self, cueType = 'Media', name = None, cueSpec = None, copyOp = None, requiresThumbnail = True):
-		'''
-			This method will add cues or layers
+	def AddCue(self, cueSpec: mod.CueSpec.CueSpec = None, cueSpecializationPars: dict = None, copyOp: op = None, requiresThumbnail: bool = True):
+		"""This is where we add a cue to the timeline
 
-			Who calls Add? This could be a drag and drop, a button
-			
-			When you add a cue you want it to have a task. Media cue, command cue, internal command cue,
+		The general idea is, we pass in a cueSpec object to assign the General parameters, 
+		then we pass in a dict with the Specialized parameters. 
 
-			CueType can be 'Media', 'Script', 'Internal'
+		Keyword Arguments:
+			cueSpec {mod.CueSpec.CueSpec} -- The cue spec object that fills in the generic parameters (default: {None})
+			cueSpecializationPars {dict} -- The Specialized parameter dict (default: {None})
+			copyOp {op} -- we can use this function to perform a copy operation by making this True (default: {None})
+			requiresThumbnail {bool} -- Set this to True if you are adding one cue (default: {True})
 
-			cueSpec: can assign any of the cues parameters via a dictionary
+		Returns:
+			op -- returns the op
+		"""
 
-		'''
 		sourceOp = None
-
 		if copyOp:				# we can copy a cue
 			sourceOp = copyOp
 		else:
 			sourceOp = self.TemplateOp	# or we can create a new cue from the template
 		
-		
 
 		newOp = self.CuesOp.copy(sourceOp, name=self.newOpName)
+
 		newOp.tags.add('CueItem')
+		self.CuesOp.op('base_Library/opfind1').cook(force=True)
+
+		run("op('{}').par.Instanceid.expr = \"op('null_CueDB').row(me.name)[0].row-1\"".format(newOp),delayFrames=1)
+
 		newOp.nodeY = 200 * -newOp.digits
 
-		if type(cueSpec) == type(self.CueSpec):
+		if type(cueSpec) == type(self.CueSpec) and cueSpecializationPars != None:
 			if cueSpec.CustomTypePage != None:
 				jsonDict = TDJ.pageToJSONDict(cueSpec.CustomTypePage)
 				advancedPage = newOp.customPages
@@ -151,22 +175,24 @@ class Manager:
 
 				TDJ.addParametersFromJSONDict(newOp, jsonDict, replace=True, setValues=True, destroyOthers=False, newAtEnd=True, fixParNames=True)
 
+		
 
 			# run through all the parameters and assign them with setattr
 			for i in newOp.customPars:
 				curParName = i.name
-				print(curParName)
 				if hasattr(cueSpec,curParName):
 					curAttr = getattr(cueSpec,curParName)
 					if curAttr != None:
 						setattr(newOp.par, curParName, curAttr)
 				
-			
-			
-		self.CuesOp.op('base_Library/opfind1').cook(force=True)
-		
-		#self.RenderPickComp.UpdateAllBounds()
-		# print(project.pythonStack())
+				else:
+					newVal = cueSpecializationPars.get(curParName)
+					if newVal != None:
+
+						# for some reason I couldn't set the values here on the same frame.
+						run("setattr(op('{}').par, '{}', {})".format(newOp, curParName, newVal),delayFrames= 1)
+						
+
 		if requiresThumbnail:
 			self.ThumbnailCache.AddItem(newOp)
 
@@ -405,17 +431,7 @@ class Manager:
 
 	def GetSystemData(self):
 		
-		system = parent.Timeline
 
-		systemInfo = {
-			'Version' : system.par.Version.eval(),
-			'Author' : system.par.Author.eval(),
-			'AuthorEmail' : system.par.Authoremail.eval(),
-			'TD_Build' : project.saveBuild,
-			'OS_Name' : project.saveOsName,
-			'OS_Version' : project.saveOsVersion
-		}
-		
 		return systemInfo
 
 	def GetTimelineData(self):
@@ -530,11 +546,20 @@ class Manager:
 
 	### Project File Management
 	def PackageProject(self):
+		""" This function retrieves all the stored data about 
+			this project. To store a project, we need user data,
+			system data, and timeline data.
 
+			System data is originaly stored on startup in the exec1 dat, which lives
+			next to this.
 
-		user = self.GetOps(user = True)
+		Returns:
+			dict -- A dict containing user settings, system data, and timelines
+		"""
+		
+		user = parent.Main.op('iparUserSettings') # retrieve the user settings component
 		userData = self.GetItemData(user, excludePages = {'Settings','Camera'}, parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
-		systemData = self.GetSystemData()
+		systemData = parent().fetch('SystemData',dict())
 
 		projData = {
 			'UserSettings' 	: userData,
@@ -542,13 +567,28 @@ class Manager:
 			'Timelines'		: self.Timelines,
 			}
 
-		# pprint(jsonProj)
 
 		return projData
-		# ext.Saver.SaveToDisk(data = projData)
 
 	def LoadProject(self,saveBeforeExit=True):
-		
+		"""
+		LoadProject loads in a timeline project from disk.  
+
+		The load process: 
+
+			First, we set the system to default with SetSystemToDefault(). That means, unload all timeline,
+			remove everything from storage, delete cues, everything.
+
+			We store our timelines in this component's storage under the key "Timelines"
+
+			To keep track of timeline names without having to pull down an entire dictionary,
+			we use the property of this class TimelineNames. This poperty's setter and getter handle
+			the storage management for us. It also updates the timeline names menu we see in the UI.
+			So, when you set TimelineNames, it updates storage as well as the timeline menu automatically.
+
+		Keyword Arguments:
+			saveBeforeExit {bool} -- if enabled, we save our project automatically. Currently not working (default: {True})
+		"""
 		if saveBeforeExit:
 			print('save before exit enabled')
 			self.StoreTimelineData()
@@ -588,57 +628,70 @@ class Manager:
 
 		run("op('{}').LoadTimeline('{}',savePrevious=False)".format(self.myOp,firstTimeline),delayFrames=5)
 
-		
-
-		'''	
-			Steps to loading a project: 
-			1) Set the Timeline data in storage
-			2) Set the User's Project page settings
-			3) Update the TimelineNames member property
-
-		'''
-		# pprint(project.pythonStack())
-
 
 	def CloseProject(self, saveBeforeExit=True):
-		
+		"""CloseProject closes the project and does some cleanup for us.
+		First, SetSystemToDefault is run.
+
+		Keyword Arguments:
+			saveBeforeExit {bool} -- [currently not working, saves the project before closing] (default: {True})
+		"""
+
 		if saveBeforeExit:
 			self.StoreTimelineData()
 			ext.Saver.SaveToDisk(filepath = ipar.UserSettings.Activeproject.eval())
 
 		self.SetSystemToDefault()
-		ipar.UserSettings.Activeproject = ''
-		ipar.UserSettings.File = ''
+
 
 	def SetSystemToDefault(self):
+		"""Restores all timeline data to default. 
+			We use StoreTimelineData with the keyword of resetState to 
+			reset storage.
+		"""
 		self.StoreTimelineData(resetState=True)
 		###### REMOVE CUES #### DANGER ZONE #####
 		self.RemoveCues(selection=False, clearAll=True)							# start from scratch with cues removed
 		################################################
+		ipar.UserSettings.Activeproject = ''
+		ipar.UserSettings.File = ''
 
 	### END Project File Management
 
 
 	@property
-	def TimelineNames(self):
+	def TimelineNames(self) -> set:
+		"""Retrieve the timeline named from storage
+
+		Returns:
+			set -- The timeline names
+		"""
 		curSet =self.myOp.fetch('TimelineNames',set(),storeDefault=True)
-		# self.UpdateTimelineMenu(curSet)
 		return curSet
 	
 	@TimelineNames.setter
-	def TimelineNames(self, val):
+	def TimelineNames(self, val: set)->None:
+		"""Sets the timeline names for the timeline.
+
+		By setting this we are accomplishing two things at once.
+		First, we are storing the timeline names for later use.
+		Second, we are updating the UI menu.
+
+		Arguments:
+			val {set} -- the available timeline names from the project file
+		"""
 		assert type(val) == set, "Wrong type assigned to TimelineNames. Expected a set, got a " + str(type(val))
 
 		self.myOp.store('TimelineNames',val)
+
 		valList = list(val)
 
+		# we can update the UI menu here to avoid recoding this.
 		menuLabels = [x for x in valList if x != '']
 
 		menuNames = menuLabels
 
-
-
-		menu= ipar.UserSettings.Availabletimelines
+		menu = ipar.UserSettings.Availabletimelines
 		menu.menuNames = menuLabels
 		menu.menuLabels = menuNames
 		menu.val = self.ActiveTimeline
@@ -646,7 +699,14 @@ class Manager:
 		return 
 
 	@property
-	def ActiveTimeline(self):
+	def ActiveTimeline(self)->str:
+		""" retrieves for us the currently active timeline
+		this is technically just a custom parameter in user settings,
+		but to be very clear I added this.
+
+		Returns:
+			str -- the name of the timeline
+		"""
 		return ipar.UserSettings.Activetimeline.eval()
 
 	@ActiveTimeline.setter
@@ -654,8 +714,24 @@ class Manager:
 		ipar.UserSettings.Activetimeline.val = val
 
 	@property
-	def Timelines(self):
+	def Timelines(self)->dict:
+		"""easy way of retrieving from storage our timeline
+
+		Returns:
+			dict -- a dict with all our timeline data
+		"""
 		return self.myOp.fetch('Timelines', dict(), storeDefault = True)
 
 	### END REGION STORE ITEM DATA
 
+	def TestFunc(self, val: float)->bool:
+		"""[summary]
+
+		Arguments:
+			val {float} -- [description]
+
+		Returns:
+			bool -- [description]
+		"""
+
+		return True
