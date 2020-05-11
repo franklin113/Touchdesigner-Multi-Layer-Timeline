@@ -21,6 +21,8 @@ See the wiki for how to build a custom Timeline System.
 
 [How To Build A Media Bin](https://github.com/franklin113/Touchdesigner-Multi-Layer-Timeline/wiki/How-to-build-a-Media-Bin)
 
+[Saving And Loading A Timeline Project](https://github.com/franklin113/Touchdesigner-Multi-Layer-Timeline/wiki/How-To-Save-Your-Timeline-Project)
+
 # Contributing:
 The most useful types of contributions would be sharing your custom media bins and players for our examples folder. If you find a cool way to use it in your project, any demos or examples would be awesome.
 
