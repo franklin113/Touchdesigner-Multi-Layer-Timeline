@@ -19,6 +19,8 @@ See the wiki for how to build a custom Timeline System.
 ### Some useful pages from the wiki- 
 [Keyboard Shortcuts](https://github.com/franklin113/Touchdesigner-Multi-Layer-Timeline/wiki/Keyboard-Shortcuts)
 
+[How To Build A Media Bin](https://github.com/franklin113/Touchdesigner-Multi-Layer-Timeline/wiki/How-to-build-a-Media-Bin)
+
 # Contributing:
 The most useful types of contributions would be sharing your custom media bins and players for our examples folder. If you find a cool way to use it in your project, any demos or examples would be awesome.
 
