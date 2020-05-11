@@ -103,7 +103,9 @@ def onPulse(par):
 		projectOp.CloseProject(saveBeforeExit=response)
 
 	elif par.name == 'Addcue':
-		parent.Main.op('Project').AddDefault(op('select_CurrentTime')['timer_fraction_WorldPos'].eval())
+		if ipar.UserSettings.Activetimeline.eval() != '':
+
+			parent.Main.op('Project').AddDefault(op('select_CurrentTime')['timer_fraction_WorldPos'].eval())
 
 	elif par.name == 'Createtimeline':
 		projectOp.AddTimeline(par.owner.par.Newtimelinename.eval())

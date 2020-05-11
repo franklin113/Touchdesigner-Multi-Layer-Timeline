@@ -93,6 +93,9 @@ class Manager:
 		Returns:
 			bool -- Success state --- True if success, False if fail
 		"""
+		if ipar.UserSettings.Activetimeline.eval() == '':
+			print("No Timeline, Cannot Drop into")
+			return
 
 		newOpsList = []
 		renderOp = parent.Main.op('Render')
@@ -558,7 +561,7 @@ class Manager:
 		"""
 		
 		user = parent.Main.op('iparUserSettings') # retrieve the user settings component
-		userData = self.GetItemData([user], excludePages = {'Settings','Camera'}, parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
+		userData = self.GetItemData([user], excludePages = {'Setup','Camera'}, parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
 		systemData = parent().fetch('SystemData',dict())
 
 		projData = {
@@ -595,9 +598,9 @@ class Manager:
 			ext.Saver.SaveToDisk(filepath = ipar.UserSettings.Activeproject.eval())
 
 
-		self.SetSystemToDefault()
 		projectData = ext.Saver.LoadFromDisk()
-		
+		self.SetSystemToDefault(keepProjectLoaded=True)
+
 		# print('Timelines', projectData['Timelines'])
 		if projectData == None or projectData == dict():
 			debug("Failed To Retrieve Data From Disk")
@@ -644,7 +647,7 @@ class Manager:
 		self.SetSystemToDefault()
 
 
-	def SetSystemToDefault(self):
+	def SetSystemToDefault(self, keepProjectLoaded = False):
 		"""Restores all timeline data to default. 
 			We use StoreTimelineData with the keyword of resetState to 
 			reset storage.
@@ -653,8 +656,9 @@ class Manager:
 		###### REMOVE CUES #### DANGER ZONE #####
 		self.RemoveCues(selection=False, clearAll=True)							# start from scratch with cues removed
 		################################################
-		ipar.UserSettings.Activeproject = ''
-		ipar.UserSettings.File = ''
+		if not keepProjectLoaded:
+			ipar.UserSettings.Activeproject = ''
+			ipar.UserSettings.File = ''
 
 	### END Project File Management
 

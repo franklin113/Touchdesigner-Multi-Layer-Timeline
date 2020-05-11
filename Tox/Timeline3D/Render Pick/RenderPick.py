@@ -48,7 +48,7 @@ class RenderPick:
 		self.PageScope = {
 			'Cue' : 'Settings Specialized',
 			'Layer' : 'Layer',
-			'Bg' : 'Settings Camera Project'
+			'Bg' : 'Setup Appearance Camera Project'
 		}
 
 		self.RickClickCallbackInfo = {

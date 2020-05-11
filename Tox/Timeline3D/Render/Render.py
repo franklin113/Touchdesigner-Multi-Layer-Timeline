@@ -7,7 +7,6 @@ can be accessed externally, e.g. op('yourComp').PromotedFunction().
 
 Help: search "Extensions" in wiki
 """
-import numpy as np
 from TDStoreTools import StorageManager
 TDF = op.TDModules.mod.TDFunctions
 
@@ -24,8 +23,6 @@ class Render:
 		self.uvChans = [op('panel1')['insideu'], op('panel1')['insidev']]
 		self.ScrollSpeed = ipar.SystemSettings.Scrollspeed
 		self.TimelineLength = ipar.UserSettings.Timelinelength
-		self.ZoomSpeed = ipar.UserSettings.Zoomspeed
-
 		self.RangeBar = parent.Timeline.op('container_RangeSlider/container2')
 		self.lRangePar, self.rRangePar = ipar.Camera.Lrange, ipar.Camera.Rrange
 		self.SnappingThresholdPar = parent.Main.op('Cues/base_Snapping/script1').par.Threshold
@@ -139,12 +136,12 @@ class Render:
 		offset = self.ScreenSpaceToWorldspace(x=0, offset = (100,0) )
 		offset = offset.x	# we only need the x value
 
-		zoomSpeed = self.ZoomSpeed.eval()
+		
 	
 		if val > 0: 	# the incoming offset is  double the value when zooming in
-			zoomConstant = zoomSpeed
+			zoomConstant = 6
 		else:
-			zoomConstant = zoomSpeed + 2
+			zoomConstant = 8
 			
 		# this is how we are creating our zoom multiplier
 		zoomMultiplier = 1 / (timelineLength / offset)
