@@ -5,7 +5,7 @@
                 [
                     "Activetimeline",
                     "const",
-                    "Test2"
+                    "Test1"
                 ],
                 [
                     "Newtimelinename",
@@ -20,7 +20,7 @@
                 [
                     "Availabletimelines",
                     "const",
-                    "Test2"
+                    "Test1"
                 ],
                 [
                     "Loadtimeline",
@@ -70,14 +70,7 @@
             ]
         }
     },
-    "SystemData": {
-        "Version": "0.75",
-        "Author": "Tim Franklin",
-        "AuthorEmail": "timsfranklin1@gmail.com",
-        "TD_Build": "2020.22080",
-        "OS_Name": "macOS",
-        "OS_Version": "10.15.3"
-    },
+    "SystemData": {},
     "Timelines": {
         "": {
             "Cues": {},
@@ -206,12 +199,12 @@
                         [
                             "Scrubbarheight",
                             "const",
-                            1.085
+                            1.335
                         ],
                         [
                             "Cueheight",
                             "const",
-                            0.893
+                            0.865
                         ],
                         [
                             "Fps",
@@ -221,7 +214,7 @@
                         [
                             "Layerheight",
                             "const",
-                            0.823
+                            1.5
                         ],
                         [
                             "Layercount",
@@ -236,21 +229,21 @@
                     ]
                 }
             },
-            "TimePosition": 6.972663879394531
+            "TimePosition": 12.335083961486816
         },
-        "Test2": {
+        "Timeline 1": {
             "Cues": {
                 "base_Cue0": {
-                    "Specialized": [
+                    "Settings": [
                         [
-                            "Media",
+                            "Type",
                             "const",
-                            ""
+                            "Internal"
                         ],
                         [
-                            "Imagefile",
-                            "const",
-                            ""
+                            "Title",
+                            "expr",
+                            "'Cue ' + str(me.digits)"
                         ],
                         [
                             "Loop",
@@ -258,14 +251,19 @@
                             false
                         ],
                         [
-                            "Triminout1",
-                            "const",
-                            0.0
+                            "Imagefile",
+                            "expr",
+                            "app.samplesFolder + '/Map/BoxMap.tif'"
                         ],
                         [
-                            "Triminout2",
+                            "Thumbnail",
                             "const",
-                            0.0
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            8.680556297302246
                         ],
                         [
                             "Fadeinout1",
@@ -276,200 +274,11 @@
                             "Fadeinout2",
                             "const",
                             0.5
-                        ]
-                    ],
-                    "Settings": [
-                        [
-                            "Cuetype",
-                            "const",
-                            "Media"
-                        ],
-                        [
-                            "Title",
-                            "const",
-                            "Butterfly5.tif"
                         ],
                         [
                             "Starttime",
                             "const",
-                            0.0
-                        ],
-                        [
-                            "Cuelength",
-                            "const",
-                            14.0
-                        ],
-                        [
-                            "Layer",
-                            "const",
-                            1
-                        ],
-                        [
-                            "Lock",
-                            "const",
-                            false
-                        ],
-                        [
-                            "Backgroundcolorr",
-                            "const",
-                            0.0
-                        ],
-                        [
-                            "Backgroundcolorg",
-                            "const",
-                            0.184333
-                        ],
-                        [
-                            "Backgroundcolorb",
-                            "const",
-                            0.395
-                        ]
-                    ]
-                },
-                "base_Cue1": {
-                    "Specialized": [
-                        [
-                            "Media",
-                            "const",
-                            ""
-                        ],
-                        [
-                            "Imagefile",
-                            "const",
-                            ""
-                        ],
-                        [
-                            "Loop",
-                            "const",
-                            false
-                        ],
-                        [
-                            "Triminout1",
-                            "const",
-                            0.0
-                        ],
-                        [
-                            "Triminout2",
-                            "const",
-                            0.0
-                        ],
-                        [
-                            "Fadeinout1",
-                            "const",
-                            0.5
-                        ],
-                        [
-                            "Fadeinout2",
-                            "const",
-                            0.5
-                        ]
-                    ],
-                    "Settings": [
-                        [
-                            "Cuetype",
-                            "const",
-                            "Media"
-                        ],
-                        [
-                            "Title",
-                            "const",
-                            "BoxMap.tif"
-                        ],
-                        [
-                            "Starttime",
-                            "const",
-                            13.215034484863281
-                        ],
-                        [
-                            "Cuelength",
-                            "const",
-                            14.0
-                        ],
-                        [
-                            "Layer",
-                            "const",
-                            2
-                        ],
-                        [
-                            "Lock",
-                            "const",
-                            false
-                        ],
-                        [
-                            "Backgroundcolorr",
-                            "const",
-                            0.0
-                        ],
-                        [
-                            "Backgroundcolorg",
-                            "const",
-                            0.184333
-                        ],
-                        [
-                            "Backgroundcolorb",
-                            "const",
-                            0.395
-                        ]
-                    ]
-                },
-                "base_Cue2": {
-                    "Specialized": [
-                        [
-                            "Media",
-                            "const",
-                            ""
-                        ],
-                        [
-                            "Imagefile",
-                            "const",
-                            ""
-                        ],
-                        [
-                            "Loop",
-                            "const",
-                            false
-                        ],
-                        [
-                            "Triminout1",
-                            "const",
-                            0.0
-                        ],
-                        [
-                            "Triminout2",
-                            "const",
-                            0.0
-                        ],
-                        [
-                            "Fadeinout1",
-                            "const",
-                            0.5
-                        ],
-                        [
-                            "Fadeinout2",
-                            "const",
-                            0.5
-                        ]
-                    ],
-                    "Settings": [
-                        [
-                            "Cuetype",
-                            "const",
-                            "Media"
-                        ],
-                        [
-                            "Title",
-                            "const",
-                            "Banana.tif"
-                        ],
-                        [
-                            "Starttime",
-                            "const",
-                            10.39466667175293
-                        ],
-                        [
-                            "Cuelength",
-                            "const",
-                            2.8203682899475098
+                            1.3976116180419922
                         ],
                         [
                             "Layer",
@@ -477,9 +286,78 @@
                             0
                         ],
                         [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
                             "Lock",
                             "const",
                             false
+                        ]
+                    ]
+                },
+                "base_Cue1": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "expr",
+                            "'Cue ' + str(me.digits)"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "expr",
+                            "app.samplesFolder + '/Map/BoxMap.tif'"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            8.680556297302246
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            2.2656240463256836
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            2
                         ],
                         [
                             "Backgroundcolorr",
@@ -495,6 +373,159 @@
                             "Backgroundcolorb",
                             "const",
                             0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ]
+                    ]
+                },
+                "base_Cue2": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "expr",
+                            "'Cue ' + str(me.digits)"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "expr",
+                            "app.samplesFolder + '/Map/BoxMap.tif'"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            8.680556297302246
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            3.4635801315307617
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            1
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ]
+                    ]
+                },
+                "base_Cue3": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "expr",
+                            "'Cue ' + str(me.digits)"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "expr",
+                            "app.samplesFolder + '/Map/BoxMap.tif'"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            8.680556297302246
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            5.668449401855469
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            3
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
                         ]
                     ]
                 }
@@ -624,6 +655,504 @@
                         [
                             "Scrubbarheight",
                             "const",
+                            1.335
+                        ],
+                        [
+                            "Cueheight",
+                            "const",
+                            0.865
+                        ],
+                        [
+                            "Fps",
+                            "const",
+                            60.0
+                        ],
+                        [
+                            "Layerheight",
+                            "const",
+                            1.5
+                        ],
+                        [
+                            "Layercount",
+                            "const",
+                            5
+                        ],
+                        [
+                            "Addcue",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "TimePosition": 12.335083961486816
+        },
+        "Timeline 2": {
+            "Cues": {
+                "base_Cue0": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "Butterfly6.tif"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            "C:/Program Files/Derivative/TouchDesigner099/Samples/Map/Butterfly6.tif"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            538.3961181640625
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            404.62286376953125
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            1
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ]
+                    ]
+                },
+                "base_Cue1": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "Butterfly1.tif"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            "C:/Program Files/Derivative/TouchDesigner099/Samples/Map/Butterfly1.tif"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            58.62544250488282
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            118.22772216796875
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            1
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ]
+                    ]
+                },
+                "base_Cue2": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "Butterfly1.tif"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            "C:/Program Files/Derivative/TouchDesigner099/Samples/Map/Butterfly1.tif"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            5.0
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            236.799
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            2
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ]
+                    ]
+                },
+                "base_Cue3": {
+                    "Settings": [
+                        [
+                            "Type",
+                            "const",
+                            "Internal"
+                        ],
+                        [
+                            "Title",
+                            "const",
+                            "Butterfly6.tif"
+                        ],
+                        [
+                            "Loop",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Imagefile",
+                            "const",
+                            "C:/Program Files/Derivative/TouchDesigner099/Samples/Map/Butterfly6.tif"
+                        ],
+                        [
+                            "Thumbnail",
+                            "const",
+                            "moviefilein1"
+                        ],
+                        [
+                            "Cuelength",
+                            "const",
+                            1089.1611938476562
+                        ],
+                        [
+                            "Fadeinout1",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Fadeinout2",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Starttime",
+                            "const",
+                            657.8458251953125
+                        ],
+                        [
+                            "Layer",
+                            "const",
+                            3
+                        ],
+                        [
+                            "Backgroundcolorr",
+                            "const",
+                            0.0
+                        ],
+                        [
+                            "Backgroundcolorg",
+                            "const",
+                            0.184333
+                        ],
+                        [
+                            "Backgroundcolorb",
+                            "const",
+                            0.395
+                        ],
+                        [
+                            "Lock",
+                            "const",
+                            false
+                        ]
+                    ]
+                }
+            },
+            "Layers": {
+                "base_Layer0": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer1": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer2": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer3": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer4": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer5": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer6": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                },
+                "base_Layer7": {
+                    "Layer": [
+                        [
+                            "Layername",
+                            "expr",
+                            "'Layer ' + str(me.digits)"
+                        ],
+                        [
+                            "Delete",
+                            "const",
+                            0
+                        ]
+                    ]
+                }
+            },
+            "User": {
+                "iparUserSettings": {
+                    "Camera": [
+                        [
+                            "Invertscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Invertverticalscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Shiftscrollscrolls",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Zoomspeed",
+                            "const",
+                            6.0
+                        ],
+                        [
+                            "Camerafollowsplayhead",
+                            "const",
+                            false
+                        ]
+                    ],
+                    "Settings": [
+                        [
+                            "Snapping",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Timelinelength",
+                            "const",
+                            3600.0
+                        ],
+                        [
+                            "Timelinetimecode",
+                            "const",
+                            "1:00:00"
+                        ],
+                        [
+                            "Playheadthickness",
+                            "const",
+                            0.5
+                        ],
+                        [
+                            "Scrubbarheight",
+                            "const",
                             1.085
                         ],
                         [
@@ -644,7 +1173,7 @@
                         [
                             "Layercount",
                             "const",
-                            5
+                            8
                         ],
                         [
                             "Addcue",
@@ -654,7 +1183,7 @@
                     ]
                 }
             },
-            "TimePosition": 6.972663879394531
+            "TimePosition": 3328.261962890625
         },
         "Test1": {
             "Cues": {},
@@ -732,33 +1261,6 @@
             },
             "User": {
                 "iparUserSettings": {
-                    "Camera": [
-                        [
-                            "Invertscroll",
-                            "const",
-                            false
-                        ],
-                        [
-                            "Invertverticalscroll",
-                            "const",
-                            false
-                        ],
-                        [
-                            "Shiftscrollscrolls",
-                            "const",
-                            true
-                        ],
-                        [
-                            "Zoomspeed",
-                            "const",
-                            6.0
-                        ],
-                        [
-                            "Camerafollowsplayhead",
-                            "const",
-                            false
-                        ]
-                    ],
                     "Settings": [
                         [
                             "Snapping",
@@ -768,12 +1270,12 @@
                         [
                             "Timelinelength",
                             "const",
-                            30.0
+                            3600.0
                         ],
                         [
                             "Timelinetimecode",
                             "const",
-                            "0:00:30"
+                            "1:00:00"
                         ],
                         [
                             "Playheadthickness",
@@ -810,10 +1312,37 @@
                             "const",
                             0
                         ]
+                    ],
+                    "Camera": [
+                        [
+                            "Invertscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Invertverticalscroll",
+                            "const",
+                            false
+                        ],
+                        [
+                            "Shiftscrollscrolls",
+                            "const",
+                            true
+                        ],
+                        [
+                            "Zoomspeed",
+                            "const",
+                            6.0
+                        ],
+                        [
+                            "Camerafollowsplayhead",
+                            "const",
+                            false
+                        ]
                     ]
                 }
             },
-            "TimePosition": 4.86328125
+            "TimePosition": 1977.0616455078125
         }
     }
 }
