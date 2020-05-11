@@ -16,19 +16,19 @@
 '''
 class CueSpec:
 
-    def __init__(self, Cuetype = None, Title=None, Imagefile=None, Thumbnail=None, Cuelength = None, Starttime = None, Backgroundcolor = None, Layer = None ):
+class CueSpec:
 
+    def __init__(self, Cuetype = None, Title=None, Thumbnail=None, Cuelength = None, Starttime = None, Backgroundcolorr = None, Backgroundcolorg = None, Backgroundcolorb = None, Layer = None , customTypePage = None):
         self.Cuetype = Cuetype
         self.Title = Title
-        self.Imagefile = Imagefile
         self.Thumbnail = Thumbnail
-        self.Fadeinout1 = Fadeinoutduration[0]
-        self.Fadeinout2 = Fadeinoutduration[1]
         self.Cuelength = Cuelength
         self.Starttime = Starttime
-        self.Backgroundcolor = Backgroundcolor
+        self.Backgroundcolorr = Backgroundcolorr
+        self.Backgroundcolorg = Backgroundcolorg
+        self.Backgroundcolorb = Backgroundcolorb
         self.Layer = Layer
-
+        self.CustomTypePage = customTypePage
 '''
 
 # playerOp = op.Playback
@@ -53,17 +53,19 @@ def PerformDrop(args):
         # don't touch this - sets the position
         dropPos = (parent().panel.insideu, parent().panel.insidev)
         cueSpecList = []
+        specializedSpecList = []
         for file in selectedFiles:
         #     ### Build new CueSpec keyword dict
         #     ### We handle time position and layer internally so just leave those out
             cueSpecArgs = {
                 'Cuetype'   : 'Media',
                 'Title'     : file.Name,
-                'Imagefile' : file.Path,
                 'Thumbnail' : file.ThumbTOPPath,
                 'Cuelength' : file.Seconds,
-                'Backgroundcolor' : None,
-                'customTypePage' : None
+            }
+
+            specializedSpecArgs = {
+                'Moviefile' : file.Path
             }
 
         #     create the cueSpec
@@ -71,9 +73,10 @@ def PerformDrop(args):
             
         #     # Provide the UV coords and a desired cueSpec
             cueSpecList.append(cueSpec)
+            specializedSpecList.append(specializedSpecArgs)
             
         # this takes your info and creates teh cue
-        op('Project').AddDropped(dropPos, cueSpecList)
+        op('Project').AddDropped(dropPos, cueSpecList, specializedSpecList)
         
 
 drop = PerformDrop(args)

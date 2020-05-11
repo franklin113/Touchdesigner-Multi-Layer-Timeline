@@ -147,8 +147,6 @@ class RenderPick:
 			tag = 'Cue'
 			objPrefix = self.ObjectPrefix[tag]
 			self.PreviousTag = tag
-			
-
 
 			self.ParComp.par.pagescope = self.PageScope[tag]	# change our UI page
 
@@ -436,8 +434,8 @@ class RenderPick:
 			self.BoxSelectOp.par.Offsetx , self.BoxSelectOp.par.Offsety = 0,0
 			self.BoxSelectOp.par.tx , self.BoxSelectOp.par.ty = 0,0
 
-		if self.IsScrubBar:
-			ext.Transformer.UpdateAllBounds()
+		# if self.IsScrubBar:
+		# 	ext.Transformer.UpdateAllBounds()
 
 		pass
 
@@ -452,7 +450,7 @@ class RenderPick:
 			params: timeOffset - the value coming from the snapping callbacks 
 				This will offset our cues by a value to lock it in place.
 		'''
-
+		firstOffset = 0
 		for ind, obj in enumerate(ext.Selection.Selection):
 			
 			if self.CanTranslate: # Translate our cue
@@ -463,6 +461,15 @@ class RenderPick:
 				
 				if timeOffset != None and timeOffset != 0.0 and ipar.UserSettings.Snapping.eval():
 					proposedStartTime -= timeOffset		
+
+				else:
+					if self.KeyboardOp.par.Ctrlalt.eval():
+						newOffset = proposedStartTime - self.Timer['timer_seconds0'].eval()
+						if ind == 0:
+							firstOffset = newOffset
+						# newOffset = min(self.User.Timelinelength.eval()-1, newOffset )
+						proposedStartTime -= firstOffset
+						print(proposedStartTime)
 
 				self.SetStartTime(proposedStartTime, obj)
 			elif self.CanStretch:
@@ -489,7 +496,22 @@ class RenderPick:
 
 				self.SetLength(obj, finalLength)
 
-	def SetStartTime(self, startTime, Cue):
+	def SetStartTime(self, startTime: float, Cue: COMP):
+		"""Assigns the start time value to a cue. 
+		First, we check and see if the cue is locked. You can enable locking on a cue
+		in it's custom parameters. 
+		We then have to do a few checks to make sure we aren't outside the bounds of the timeline
+
+		The Ctrl-Alt keyboard shortcut must be handled elsewhere, we put that up in the 
+		SetAllSelectionStartTimes. It's a bit confusing, but the above function loops through an iterable,
+		while this function actually does the assignment.
+
+		Arguments:
+			startTime {float} -- the time that the cue will start at
+			Cue {COMP} -- The component this cue is represented by.
+		"""
+
+
 
 		if Cue.par.Lock.eval():
 			return
@@ -497,17 +519,15 @@ class RenderPick:
 		realStartTime = max(0.0,startTime)
 		realStartTime = min(realStartTime, self.User.Timelinelength.eval() - 1)
 
-		if self.KeyboardOp.par.Ctrlalt.eval():
-			realStartTime = min(self.User.Timelinelength.eval()-1, self.Timer['timer_seconds0'].eval())
 
+		if not self.KeyboardOp.par.Ctrlalt.eval():
+			if self.KeyboardOp.par.Ctrl.eval():		# snap to seconds
+				# realStartTime = int(realStartTime)
+				realStartTime = ext.Transformer.IncrementalTransform([realStartTime])[0]
 
-		elif self.KeyboardOp.par.Ctrl.eval():		# snap to seconds
-			# realStartTime = int(realStartTime)
-			realStartTime = ext.Transformer.IncrementalTransform([realStartTime])[0]
-
-		elif self.KeyboardOp.par.Alt.eval():		# snap to frames
-			frameLength = 1000 / self.User.Fps.eval() * .001
-			realStartTime = self.myOp.IncrementalTransform( [realStartTime], frameLength)[0]
+			elif self.KeyboardOp.par.Alt.eval():		# snap to frames
+				frameLength = 1000 / self.User.Fps.eval() * .001
+				realStartTime = self.myOp.IncrementalTransform( [realStartTime], frameLength)[0]
 
 
 		Cue.par.Starttime = realStartTime

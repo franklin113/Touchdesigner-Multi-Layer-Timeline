@@ -558,7 +558,7 @@ class Manager:
 		"""
 		
 		user = parent.Main.op('iparUserSettings') # retrieve the user settings component
-		userData = self.GetItemData(user, excludePages = {'Settings','Camera'}, parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
+		userData = self.GetItemData([user], excludePages = {'Settings','Camera'}, parsToExclude=set(('Activeproject','Activetimeline','File')))	# we only want the project page
 		systemData = parent().fetch('SystemData',dict())
 
 		projData = {
@@ -724,7 +724,6 @@ class Manager:
 
 	### END REGION STORE ITEM DATA
 
-	def TestFunc(self, val: float)->bool:
 		"""[summary]
 
 		Arguments:
