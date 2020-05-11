@@ -17,7 +17,7 @@ TD-MTL provides a variety of cue types, such as "Media", "Tox", "TCP/IP", and mo
 See the wiki for how to build a custom Timeline System.
 
 ### Some useful pages from the wiki- 
-[asdf](https://github.com/franklin113/Touchdesigner-Multi-Layer-Timeline/wiki/Keyboard-Shortcuts)
+[Keyboard Shortcuts](https://github.com/franklin113/Touchdesigner-Multi-Layer-Timeline/wiki/Keyboard-Shortcuts)
 
 # Contributing:
 The most useful types of contributions would be sharing your custom media bins and players for our examples folder. If you find a cool way to use it in your project, any demos or examples would be awesome.
