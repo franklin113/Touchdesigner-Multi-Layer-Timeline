@@ -1,6 +1,28 @@
 {
     "UserSettings": {
         "iparUserSettings": {
+            "Appearance": [
+                [
+                    "Playheadthickness",
+                    "const",
+                    0.5
+                ],
+                [
+                    "Scrubbarheight",
+                    "const",
+                    1.085
+                ],
+                [
+                    "Cueheight",
+                    "const",
+                    0.893
+                ],
+                [
+                    "Layerheight",
+                    "const",
+                    0.823
+                ]
+            ],
             "Project": [
                 [
                     "Activetimeline",
@@ -1261,22 +1283,7 @@
             },
             "User": {
                 "iparUserSettings": {
-                    "Settings": [
-                        [
-                            "Snapping",
-                            "const",
-                            true
-                        ],
-                        [
-                            "Timelinelength",
-                            "const",
-                            3600.0
-                        ],
-                        [
-                            "Timelinetimecode",
-                            "const",
-                            "1:00:00"
-                        ],
+                    "Appearance": [
                         [
                             "Playheadthickness",
                             "const",
@@ -1293,24 +1300,9 @@
                             0.893
                         ],
                         [
-                            "Fps",
-                            "const",
-                            60.0
-                        ],
-                        [
                             "Layerheight",
                             "const",
                             0.823
-                        ],
-                        [
-                            "Layercount",
-                            "const",
-                            5
-                        ],
-                        [
-                            "Addcue",
-                            "const",
-                            0
                         ]
                     ],
                     "Camera": [
@@ -1339,10 +1331,42 @@
                             "const",
                             false
                         ]
+                    ],
+                    "Setup": [
+                        [
+                            "Timelinetimecode",
+                            "const",
+                            "1:00:00"
+                        ],
+                        [
+                            "Timelinelength",
+                            "const",
+                            3600.0
+                        ],
+                        [
+                            "Fps",
+                            "const",
+                            60.0
+                        ],
+                        [
+                            "Layercount",
+                            "const",
+                            5
+                        ],
+                        [
+                            "Addcue",
+                            "const",
+                            0
+                        ],
+                        [
+                            "Snapping",
+                            "const",
+                            true
+                        ]
                     ]
                 }
             },
-            "TimePosition": 1977.0616455078125
+            "TimePosition": 3600.0
         }
     }
 }
