@@ -13,18 +13,7 @@ class Facade:
 		self.TimeComp = op('Time')
 		self.Playback = op('Playback')
 		self.CueTypes = dict()
-		self.BuildCueTypes()	# this gets assigned in the TypeBuilder class on startup
-
-	def BuildCueTypes(self):
-		"""On startup we are generating a dictionary filled with cuetype callback classes.
-		this is meant for speedy transfer of info. No reason to call getattr 3 times every single time
-		a timer ends. We already have to do it once here.
-		"""
-		if type(self.CueTypes) != dict:
-			self.CueTypes = dict()
-		cueTypes = op('Cues/CueTypes').findChildren(type=COMP)
-		for i in cueTypes:
-			self.CueTypes[i.name] = getattr(getattr(op('Playback').mod, i.name), i.name)
+		self.DebugToggle = self.Playback.par.Facadedebug
 
 	def DoCallback(self, callback:str , cueType: str, segment:int):
 		"""The timer and other ops send this class triggers to perform a callback.
@@ -33,10 +22,21 @@ class Facade:
 
 		For more information on the Facade design pattern, see Design Patterns book.
 
+		Each cue type has it's own class which derives from a base class with all basic methods
+		laid out for the designer to override. 
+
 		Arguments:
 			cueType {str} -- The name of the cue type that has just triggered something
 			callback {str} -- The name of the trigger
 			segment {int} -- The segment that just triggered this callback
 		"""
 
-		getattr(self.CueTypes[cueType], callback)(segment)	# by storing references to out types, we save a bit of speed.
+		# get the extension object first, then get the method callback
+		
+		if self.DebugToggle.eval():
+			print('From Facade\'s DoCallback: \n',"Callback: ", callback, "Cue Type: ", cueType, "Segment: ", segment)
+
+		try:
+			getattr(getattr(op('Playback').ext, cueType), callback)(callback, cueType, segment)
+		except Exception as e:
+			print("Exception inside of the Facade- check callbacks: \n\n", e)

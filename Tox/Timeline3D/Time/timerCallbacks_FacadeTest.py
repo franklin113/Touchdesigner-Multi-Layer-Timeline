@@ -21,8 +21,11 @@ def onStart(timerOp):
 	return
 	
 def onTimerPulse(timerOp, segment):
-	# cueType = op('null_Segments')[segment,'Cuetype'].val
-	# mainComp.DoCallback('TimerPulse', cueType, segment)
+
+	if null_Segments.numRows > 1:
+		cueType = null_Segments[segment+1,'Cuetype'].val
+		if cueType != '':
+			mainComp.DoCallback('TimerPulse', cueType, segment)
 	return
 
 def whileTimerActive(timerOp, segment, cycle, fraction):
@@ -30,18 +33,17 @@ def whileTimerActive(timerOp, segment, cycle, fraction):
 
 def onSegmentEnter(timerOp, segment, interrupt):
 	
-	print('segment: ', interrupt)
 	if null_Segments.numRows > 1:
 		cueType = null_Segments[segment+1,'Cuetype'].val
 		if cueType != '':
-			mainComp.DoCallback('Start', cueType, segment)
+			mainComp.DoCallback('SegmentEnter', cueType, segment)
 	return
 	
 def onSegmentExit(timerOp, segment, interrupt):
 	if null_Segments.numRows > 1:
 		cueType = null_Segments[segment+1,'Cuetype'].val
 		if cueType != '':
-			mainComp.DoCallback('End', cueType, segment)
+			mainComp.DoCallback('SegmentExit', cueType, segment)
 	return
 
 def onCycleStart(timerOp, segment, cycle):
