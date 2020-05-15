@@ -20,6 +20,8 @@ class Facade:
 		this is meant for speedy transfer of info. No reason to call getattr 3 times every single time
 		a timer ends. We already have to do it once here.
 		"""
+		if type(self.CueTypes) != dict:
+			self.CueTypes = dict()
 		cueTypes = op('Cues/CueTypes').findChildren(type=COMP)
 		for i in cueTypes:
 			self.CueTypes[i.name] = getattr(getattr(op('Playback').mod, i.name), i.name)
