@@ -10,7 +10,7 @@
 # onInitialize(): if return value > 0, it will be
 # called again after the returned number of frames.
 mainComp = parent.Main
-
+null_Segments = op('null_Segments')
 def onInitialize(timerOp):
 	return 0
 
@@ -31,33 +31,38 @@ def whileTimerActive(timerOp, segment, cycle, fraction):
 def onSegmentEnter(timerOp, segment, interrupt):
 	
 	print('segment: ', interrupt)
-	cueType = op('null_Segments')[segment+1,'Cuetype'].val
-	if cueType != '':
-		mainComp.DoCallback('Start', cueType, segment)
+	if null_Segments.numRows > 1:
+		cueType = null_Segments[segment+1,'Cuetype'].val
+		if cueType != '':
+			mainComp.DoCallback('Start', cueType, segment)
 	return
 	
 def onSegmentExit(timerOp, segment, interrupt):
-	cueType = op('null_Segments')[segment+1,'Cuetype'].val
-	if cueType != '':
-		mainComp.DoCallback('End', cueType, segment)
+	if null_Segments.numRows > 1:
+		cueType = null_Segments[segment+1,'Cuetype'].val
+		if cueType != '':
+			mainComp.DoCallback('End', cueType, segment)
 	return
 
 def onCycleStart(timerOp, segment, cycle):
-	cueType = op('null_Segments')[segment+1,'Cuetype'].val
-	if cueType != '':
-		mainComp.DoCallback('CycleStart', cueType, segment)
+	if null_Segments.numRows > 1:
+		cueType = null_Segments[segment+1,'Cuetype'].val
+		if cueType != '':
+			mainComp.DoCallback('CycleStart', cueType, segment)
 	return
 
 def onCycleEndAlert(timerOp, segment, cycle, alertSegment, alertDone, interrupt):
-	cueType = op('null_Segments')[segment+1,'Cuetype'].val
-	if cueType != '':
-		mainComp.DoCallback('CycleEndAlert', cueType, segment)
+	if null_Segments.numRows > 1:
+		cueType = null_Segments[segment+1,'Cuetype'].val
+		if cueType != '':
+			mainComp.DoCallback('CycleEndAlert', cueType, segment)
 	return
 	
 def onCycle(timerOp, segment, cycle):
-	cueType = op('null_Segments')[segment+1,'Cuetype'].val
-	if cueType != '':
-		mainComp.DoCallback('Cycle', cueType, segment)
+	if null_Segments.numRows > 1:
+		cueType = null_Segments[segment+1,'Cuetype'].val
+		if cueType != '':
+			mainComp.DoCallback('Cycle', cueType, segment)
 	return
 
 def onDone(timerOp, segment, interrupt):
